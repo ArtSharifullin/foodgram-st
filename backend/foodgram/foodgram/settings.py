@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-9mm^lsls&ox*bik9tb02-@zx398&_-^&p+^cplb%_wh=i+q5wz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["backend", "localhost", "127.0.0.1", 'foodgram.local']
 
 
 # Application definition
@@ -127,7 +127,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'backend_media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+STATIC_URL = '/backend_static/'
+STATIC_ROOT = BASE_DIR / '/backend_static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {

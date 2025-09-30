@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-job
+  namespace: foodgram
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: foodgram-back:latest
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "python manage.py makemigrations && python manage.py migrate"]
+          envFrom:
+            - secretRef:
+                name: db-secrets
+            - configMapRef:
+                name: back-config

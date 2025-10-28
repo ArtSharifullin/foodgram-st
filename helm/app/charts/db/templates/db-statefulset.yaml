@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}-sts
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  serviceName: {{ .Values.service.ports.host | quote}}
+  {{- with .Values.statefulset }}
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .app }}
+    spec:
+      containers:
+      - name: {{ .app }}
+        image: {{ printf "%s:%s" .image.name .image.tag }}
+  {{- end }}
+        envFrom:
+        - secretRef:
+            name: {{ .Chart.Name }}-secrets
+        ports:
+        - containerPort: {{ .Values.service.ports.port }}
+        volumeMounts:
+        - name: {{ .Chart.Name }}-storage
+  {{- with .Values.statefulset }}
+          mountPath: {{ .pvc.mountPath }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .name }}-storage
+    spec:
+      accessModes: 
+      - {{ .pvc.accessModes | quote}}
+      resources:
+        requests:
+          storage: {{ .pvc.storage | quote}}
+  {{- end }}
+  

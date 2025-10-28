@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: collectstatic-job
+  namespace: foodgram
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: collectstatic
+          image: foodgram-backend:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "manage.py", "collectstatic", "--noinput"]
+          envFrom:
+            - secretRef:
+                name: db-secrets
+            - configMapRef:
+                name: backend-config
+          volumeMounts:
+            - name: backend-static
+              mountPath: /backend_static
+      volumes:
+        - name: backend-static
+          persistentVolumeClaim:
+            claimName: static-pvc

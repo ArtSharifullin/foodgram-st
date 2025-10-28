@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.statefulset.pvc.storage | quote}}

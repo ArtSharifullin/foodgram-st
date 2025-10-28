@@ -1,0 +1,39 @@
+service:
+  type: ClusterIP
+  ports: 
+    host: database
+    name: postgresql
+    port: 8000
+
+secret:
+  DB_PORT: 5432
+  DB_HOST: database
+  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
+  DJANGO_SETTINGS_MODULE: foodgram.settings
+
+statefulset:
+  replicas: 1
+  image: 
+    name: foodgram-backend
+    tag: latest
+  imagePullPolicy: IfNotPresent
+  env:
+    values:
+      DB_HOST: database
+    secrets:
+      POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_USER
+      POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_PASSWORD
+      POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_DB
+    config: {}
+
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc

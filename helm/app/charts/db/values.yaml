@@ -1,0 +1,26 @@
+service:
+  type: ClusterIP
+  ports: 
+    host: database
+    name: postgresql
+    port: 5432
+    targetPort: 5432
+    protocol: TCP 
+
+secret:
+  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
+
+statefulset:
+  name: db
+  app: postgres
+  replicas: 1
+  image: 
+    name: postgres
+    tag: "17"
+  pvc:
+    mountPath: /var/lib/postgresql/data
+    accessModes: ReadWriteOnce
+    storage: 1Gi
+    hostpath: /data/db

@@ -1,0 +1,26 @@
+service:
+  type: ClusterIP
+  ports: 
+    port: 80
+
+statefulset:
+  replicas: 1
+  image: 
+    name: foodgram-frontend
+    tag: latest
+  imagePullPolicy: IfNotPresent
+
+volumeMounts:
+  config:
+    name: nginx-config-volume
+    mountPath: /etc/nginx/conf.d/custom.conf
+    subPath: default.conf
+    subName: nginx-config
+  media:
+    name: media-volume
+    mountPath: /app/media
+    subName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    subName: static-pvc

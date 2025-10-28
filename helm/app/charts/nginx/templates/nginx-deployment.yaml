@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "nginx.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      initContainers:
+      - name: init-dirs
+        image: busybox
+        command: ['sh', '-c', 'mkdir -p /app/media /backend_static']
+        volumeMounts:
+          - name: media-volume
+            mountPath: /app/media
+          - name: backend-static
+            mountPath: /backend_static
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.statefulset }}
+          image: {{ printf "%s:%s" .image.name .image.tag }}
+          imagePullPolicy: {{ .imagePullPolicy }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .config.name }}
+              mountPath: {{ .config.mountPath }}
+              subPath: {{ .config.subPath }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .config.name }}
+          configMap:
+            name: {{ .config.subName }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.subName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.subName }}
+        {{- end }}

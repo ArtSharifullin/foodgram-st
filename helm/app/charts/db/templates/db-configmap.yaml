@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: foodgram
+  name: {{ .Chart.Name }}-configmap
+  labels:
+{{ include "db.labels" . | indent 4 }}
+data:
+  host: {{ .Values.service.ports.host}}
+  port: {{ .Values.service.ports.port | quote }}

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-pv
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.statefulset.pvc.storage }}
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes }}
+  hostPath:
+    path: {{ .Values.statefulset.pvc.hostpath | quote}}

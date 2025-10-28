@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "backend.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.statefulset }}
+          image: {{ printf "%s:%s" .image.name .image.tag }}
+          imagePullPolicy: {{ .imagePullPolicy }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+          env:
+            {{- range $key, $val := .Values.statefulset.env.values }}
+            - name: {{ $key }}
+              value: {{ $val }}
+            {{- end }}
+            {{- range $key, $val := .Values.statefulset.env.secrets}}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: {{ $val }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.claimName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.claimName }}
+        {{- end }}

@@ -1,0 +1,31 @@
+db: 
+  secrets:
+    name: db-secrets
+  config:
+    name: db-config
+
+service:
+  port: 8000
+
+ingress:
+  name: foodgram-ingress
+  namespace: foodgram
+  annotations:
+    proxyBodySize: 10m
+    proxyReadTimeout: 3600
+    proxySendTimeout: 3600
+    backendProtocol: HTTP
+    corsAllowOrigin: "*"
+    enableCors: true
+  spec:
+    ingressName: nginx
+    rules:
+      host:
+        name: foodgram.local
+        paths:
+          slashService:
+            name: nginx-service
+            portNumber: 80
+          apiAdminService:
+            name: backend-service
+            portNumber: 8000

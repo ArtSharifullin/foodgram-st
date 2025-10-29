@@ -6,6 +6,34 @@ Expand the name of the chart.
 {{- end }}
 
 {{/*
+Return backend service name from top-level values with a safe default
+*/}}
+{{- define "app.backendServiceName" -}}
+{{- default "backend-service" .Values.ingress.spec.rules.host.paths.apiAdminService.name -}}
+{{- end -}}
+
+{{/*
+Return backend service name or empty (for conditional fallback in subcharts)
+*/}}
+{{- define "app.backendServiceNameOrEmpty" -}}
+{{- default "" .Values.ingress.spec.rules.host.paths.apiAdminService.name -}}
+{{- end -}}
+
+{{/*
+Return nginx service name or empty (for conditional fallback in subcharts)
+*/}}
+{{- define "app.nginxServiceNameOrEmpty" -}}
+{{- default "" .Values.ingress.spec.rules.host.paths.slashService.name -}}
+{{- end -}}
+
+{{/*
+Return DB secrets name from top-level values with a safe default
+*/}}
+{{- define "app.dbSecretsName" -}}
+{{- default "db-secrets" .Values.db.secrets.name -}}
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.

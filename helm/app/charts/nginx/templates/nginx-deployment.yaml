@@ -9,11 +9,11 @@ spec:
   replicas: {{ .Values.statefulset.replicas }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+{{ include "nginx.selectorLabels" . | indent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+{{ include "nginx.selectorLabels" . | indent 8 }}
     spec:
       initContainers:
       - name: init-dirs

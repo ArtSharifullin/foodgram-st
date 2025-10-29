@@ -40,7 +40,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: db-secrets
+                  name: {{ include "app.dbSecretsName" . }}
                   key: {{ $val }}
             {{- end }}
       volumes:

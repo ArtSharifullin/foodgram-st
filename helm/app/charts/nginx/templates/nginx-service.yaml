@@ -1,7 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
+  {{- $override := (include "app.nginxServiceNameOrEmpty" .) -}}
+  {{- if $override }}
+  name: {{ $override }}
+  {{- else }}
   name: {{ .Chart.Name }}-service
+  {{- end }}
   namespace: foodgram
   labels:
 {{ include "nginx.labels" . | indent 4 }}

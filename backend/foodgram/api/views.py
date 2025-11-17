@@ -8,7 +8,7 @@ from djoser.views import UserViewSet
 from rest_framework import permissions, status, viewsets, mixins
 from rest_framework.filters import SearchFilter
 from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from api.filters import IngredientFilter, RecipeFilter
@@ -246,3 +246,41 @@ def download_shopping_cart(request):
     response['Content-Disposition'] = 'attachment; filename={0}'.format(
         filename)
     return response
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_quote_view(request):
+    count = request.GET.get('count', '2')
+    send_task('quote', {'count': count})
+    return Response({'status': 'queued', 'task': 'quote', 'count': count})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_cat_fact_view(request):
+    count = request.GET.get('count', '3')
+    send_task('cat_fact', {'count': count})
+    return Response({'status': 'queued', 'task': 'cat_fact', 'count': count})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def run_quote_task(request):
+    count = request.data.get('count', '3')
+    task = get_quote_task.delay(count)
+    return Response({'task_id': task.id})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def run_cat_fact_task(request):
+    count = request.data.get('count', '3')
+    task = get_cat_fact_task.delay(count)
+    return Response({'task_id': task.id})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_task_status(request, task_id):
+    result = AsyncResult(task_id)
+    return Response({
+        'task_id': task_id,
+        'status': result.status,
+        'result': result.result if result.ready() else None,
+    })

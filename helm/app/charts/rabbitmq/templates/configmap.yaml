@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: foodgram
+  name: {{ include "rabbitmq.configMapName" . }}
+  labels:
+{{ include "rabbitmq.labels" . | indent 4 }}
+data:
+  host: ampq.rabbitmq.itis-3k-cloud.ru
+  port: {{ .Values.service.port | quote }}

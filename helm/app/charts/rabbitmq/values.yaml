@@ -1,20 +1,8 @@
-auth:
+service:
+  port: 5672
+  
+config: {}
+
+secret:
   username: ref+vault://secrets/rabbitmq#/username
   password: ref+vault://secrets/rabbitmq#/password
-
-service:
-  type: NodePort
-
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  hostname: rabbitmq.foodgram.local
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-
-persistence:
-  enabled: true
-  size: 8Gi
-
-metrics:
-  enabled: true

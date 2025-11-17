@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: foodgram-frontend:latest
+          image: tkshabalin/foodgram-frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: collectstatic
-          image: foodgram-back:latest
+          image: tkshabalin/foodgram-back:latest
           imagePullPolicy: IfNotPresent
           command: ["python", "manage.py", "collectstatic", "--noinput"]
           envFrom:

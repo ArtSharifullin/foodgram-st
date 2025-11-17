@@ -4,6 +4,12 @@ db:
   config:
     name: db-config
 
+rabbitmq: 
+  secrets:
+    name: rabbitmq-secrets
+  config:
+    name: rabbitmq-config
+
 service:
   port: 8000
 

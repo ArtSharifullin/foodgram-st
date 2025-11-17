@@ -1,0 +1,13 @@
+replicaCount: 1
+image:
+  repository: tkshabalin/foodgram-back
+  tag: latest
+
+env:
+  port: 5555
+
+configMap: backend-config
+secret: app-env
+
+app:
+  dbSecretsName: rabbitmq

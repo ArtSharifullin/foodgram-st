@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: { app: celery-worker }
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+    spec:
+      containers:
+      - name: celery-worker
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        command:
+          - celery
+        args:
+          - -A
+          - app.celery_app.celery_app
+          - worker
+          - -l
+          - DEBUG
+        env:
+        {{- range $key, $val := .Values.statefulset.env.values }}
+        - name: {{ $key }}
+          value: {{ $val | quote }}
+        {{- end }}
+        {{- range $key, $val := .Values.statefulset.env.secrets }}
+        - name: {{ $key }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "app.dbSecretsName" . }}
+              key: {{ $val }}
+        {{- end }}

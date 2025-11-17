@@ -16,7 +16,7 @@ secret:
 statefulset:
   replicas: 1
   image: 
-    name: foodgram-backend
+    name: tkshabalin/foodgram-back
     tag: latest
   imagePullPolicy: IfNotPresent
   env:
@@ -26,6 +26,11 @@ statefulset:
       POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_USER
       POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_PASSWORD
       POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_DB
+      RABBITMQ_USER: testuser
+      RABBITMQ_PASSWORD: testpass
+      RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
+      RABBITMQ_PORT: 5672
+      RABBITMQ_URL: url
     config: {}
 
 volumeMounts:

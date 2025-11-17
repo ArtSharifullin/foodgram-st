@@ -62,3 +62,7 @@ Create the name of the service account to use
 {{- define "db.secretsName" -}}
 {{- default (printf "%s-secrets" .Chart.Name) .Values.secret.name }}
 {{- end }}
+
+{{- define "db.ConfigMapName" -}}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.secret.name }}
+{{- end }}

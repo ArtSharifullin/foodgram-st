@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: foodgram
   name: db-configmap
+  namespace: foodgram
 data:
   host: postgres
   port: "5432"

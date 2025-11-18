@@ -6,5 +6,8 @@ metadata:
   labels:
 {{ include "rabbitmq.labels" . | indent 4 }}
 data:
-  host: ampq.rabbitmq.itis-3k-cloud.ru
+  host: rabbitmq.rabbitmq.svc.cluster.local
   port: {{ .Values.service.port | quote }}
+  {{- range $key, $val := .Values.config }}
+  {{ $key }}: {{ $val }}
+  {{- end }}

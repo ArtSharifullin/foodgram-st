@@ -4,16 +4,16 @@ metadata:
   name: {{ .Chart.Name }}-deployment
   namespace: foodgram
   labels:
-{{ include "flower.labels" . | indent 4 }}
+{{ include "backend.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.statefulset.replicas }}
   selector:
     matchLabels:
-{{ include "flower.selectorLabels" . | indent 6 }}
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-{{ include "flower.selectorLabels" . | indent 8 }}
+        app: {{ .Chart.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

@@ -1,3 +1,29 @@
+namespace: foodgram
+svcName: backend-service
+
+global:
+  service:
+    backend: backend-service
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+  secret:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+
+statefulset:
+  replicas: 1
+
+image:
+  name: tkshabalin/foodgram-back
+  tag: latest
+  pullPolicy: IfNotPresent
+
 service:
   type: ClusterIP
   ports: 
@@ -5,33 +31,30 @@ service:
     name: postgresql
     port: 8000
 
-secret:
-  DB_PORT: 5432
-  DB_HOST: database
-  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
-  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
-  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
-  DJANGO_SETTINGS_MODULE: foodgram.settings
-
-statefulset:
+deployment:
   replicas: 1
-  image: 
-    name: tkshabalin/foodgram-back
-    tag: latest
-  imagePullPolicy: IfNotPresent
+  command: ["gunicorn"]
+  args: ["--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
   env:
     values:
       DB_HOST: database
+      DB_PORT: "5432"
+      DJANGO_SETTINGS_MODULE: foodgram.settings
     secrets:
-      POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_USER
-      POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_PASSWORD
-      POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_DB
-      RABBITMQ_USER: testuser
-      RABBITMQ_PASSWORD: testpass
-      RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
-      RABBITMQ_PORT: 5672
-      RABBITMQ_URL: url
-    config: {}
+      db:
+        POSTGRES_DB: POSTGRES_DB               # ← Имя ключа в секрете
+        POSTGRES_USER: POSTGRES_USER
+        POSTGRES_PASSWORD: POSTGRES_PASSWORD
+      rabbitmq:
+        RABBITMQ_USER: username                # ← Имя ключа в секрете
+        RABBITMQ_PASSWORD: password
+    config:
+      db:
+        POSTGRES_HOST: host
+        POSTGRES_PORT: port
+      rabbitmq:
+        RABBITMQ_HOST: host
+        RABBITMQ_PORT: port
 
 volumeMounts:
   media:

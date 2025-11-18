@@ -60,9 +60,9 @@ Create the name of the service account to use
 
 
 {{- define "db.secretsName" -}}
-{{- default (printf "%s-secrets" .Chart.Name) .Values.secret.name }}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secret.db }}
 {{- end }}
 
 {{- define "db.ConfigMapName" -}}
-{{- default (printf "%s-configmap" .Chart.Name) .Values.config.name }}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secret.db }}
 {{- end }}

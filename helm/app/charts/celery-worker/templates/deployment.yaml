@@ -1,36 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: celery-worker
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "celery-worker.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.statefulset.replicas }}
   selector:
-    matchLabels: { app: celery-worker }
+    matchLabels:
+{{ include "celery-worker.selectorLabels" . | indent 6 }}
   template:
     metadata:
       labels:
-        app: celery-worker
+{{ include "celery-worker.selectorLabels" . | indent 8 }}
     spec:
       containers:
-      - name: celery-worker
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        command:
-          - celery
-        args:
-          - -A
-          - app.celery_app.celery_app
-          - worker
-          - -l
-          - DEBUG
-        env:
-        {{- range $key, $val := .Values.statefulset.env.values }}
-        - name: {{ $key }}
-          value: {{ $val | quote }}
-        {{- end }}
-        {{- range $key, $val := .Values.statefulset.env.secrets }}
-        - name: {{ $key }}
-          valueFrom:
-            secretKeyRef:
-              name: {{ include "app.dbSecretsName" . }}
-              key: {{ $val }}
+        - name: {{ .Chart.Name }}
+          {{- with .Values.global.images.api }}
+          image: {{ printf "%s:%s" .name .tag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          command: {{ .Values.deployment.command | toJson }}
+          args: {{ .Values.deployment.args | toJson }}
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+          env:
+            {{- range $key, $val := .Values.deployment.env.values }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+            {{- range $alias, $mappmig := .Values.deployment.env.secrets }}
+            {{- range $key, $val := $mappmig }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ index $.Values.global.secrets $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+            {{- range $alias, $mappmig := .Values.deployment.env.config }}
+            {{- range $key, $val := $mappmig }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ index $.Values.global.config $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.claimName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.claimName }}
         {{- end }}

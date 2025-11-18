@@ -63,9 +63,9 @@ Create the name of the service account to use
 
 
 {{- define "rabbitmq.secretsName" -}}
-{{- default (printf "%s-secrets" .Chart.Name) .Values.secret.name }}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secret.rabbitmq }}
 {{- end }}
 
 {{- define "rabbitmq.configMapName" -}}
-{{- default (printf "%s-configmap" .Chart.Name) .Values.config.name }}
+{{- default (printf "%s-configmap" .Chart.Name) .Values.global.config.rabbitmq }}
 {{- end }}

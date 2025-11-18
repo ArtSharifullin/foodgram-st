@@ -1,16 +1,68 @@
-replicaCount: 1
-image:
-  repository: tkshabalin/foodgram-back
-  tag: latest
-podAnnotations: {}
-resources: {}
+namespace: foodgram
+svcName: celery-worker-service
+
+global:
+  service:
+    celeryWorker: celery-worker-service
+  ingress:
+    tls: null
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+  secret:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+
 statefulset:
+  replicas: 1
+
+image:
+  name: tkshabalin/foodgram-back
+  tag: latest
+  pullPolicy: IfNotPresent
+
+secret:
+  DB_PORT: 5432
+  DB_HOST: database
+  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
+  DJANGO_SETTINGS_MODULE: foodgram.settings
+
+deployment:
+  replicas: 1
+  command: ["celery"]
+  args: ["-A", "foodgram.celery", "worker", "--loglevel=info"]
   env:
     values:
-      RABBITMQ_USER: testuser
-      RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
-      RABBITMQ_PORT: "5672"
+      DB_HOST: database
     secrets:
-      RABBITMQ_PASSWORD: testpass
-app:
-  dbSecretsName: rabbitmq
+      db:
+        POSTGRES_DB: POSTGRES_DB
+        POSTGRES_USER: POSTGRES_USER
+        POSTGRES_PASSWORD: POSTGRES_PASSWORD
+      rabbitmq:
+        RABBITMQ_USER: username
+        RABBITMQ_PASSWORD: password
+    config:
+      db:
+        POSTGRES_HOST: host
+        POSTGRES_PORT: port
+      rabbitmq:
+        RABBITMQ_HOST: host
+        RABBITMQ_PORT: port
+
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc

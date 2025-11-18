@@ -1,21 +1,25 @@
-db: 
-  secrets:
-    name: db-secrets
+global:
+  secret:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
   config:
-    name: db-config
+    db: db-config
+    rabbitmq: rabbitmq-config
+  service:
+    backend: backend-service
+    frontend: frontend-service
+    flower: flower-service
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: Always
 
-rabbitmq: 
-  secrets:
-    name: rabbitmq-secrets
-  config:
-    name: rabbitmq-config
-
-service:
-  port: 8000
-
+baseHost:
 ingress:
   name: foodgram-ingress
   namespace: foodgram
+  host: foodgram.local
   annotations:
     proxyBodySize: 10m
     proxyReadTimeout: 3600
@@ -35,3 +39,11 @@ ingress:
           apiAdminService:
             name: backend-service
             portNumber: 8000
+
+service:
+  port: 8000
+
+flower:
+  namespace: foodgram
+  ingress:
+    host: foodgram.local

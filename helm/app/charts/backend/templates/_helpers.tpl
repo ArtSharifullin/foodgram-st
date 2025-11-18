@@ -61,6 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "app.dbSecretsName" -}}
-rabbitmq
+{{- define "backend.serviceName" -}}
+{{- default (printf "$s-service" .Chart.Name) .Values.global.service.backend }}
 {{- end -}}

@@ -1,13 +1,81 @@
-replicaCount: 1
+namespace: foodgram
+svcName: flower-service
+
+ingress:
+  enabled: false
+  host: foodgram.local
+
+global:
+  service:
+    flower: flower-service
+  ingress:
+    tls: null
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+  secret:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+  secrets:          # ← ДОБАВЬ ЭТО!
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+
+ingress:
+  host: foodgram.local
+
+service:
+  type: ClusterIP
+  ports:
+    port: 5555
+    targetPort: 5555
+
+statefulset:
+  replicas: 1
+
 image:
-  repository: tkshabalin/foodgram-back
+  name: tkshabalin/foodgram-back
   tag: latest
+  pullPolicy: IfNotPresent
 
-env:
-  port: 5555
+secret:
+  DB_PORT: 5432
+  DB_HOST: database
+  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
+  DJANGO_SETTINGS_MODULE: foodgram.settings
 
-configMap: backend-config
-secret: app-env
+deployment:
+  replicas: 1
+  command: ["celery"]
+  args: ["-A", "foodgram.celery", "flower", "--port=5555"]
+  env:
+    values:
+      DB_HOST: database
+    secrets:
+      db:
+        POSTGRES_DB: POSTGRES_DB
+        POSTGRES_USER: POSTGRES_PASSWORD
+        POSTGRES_PASSWORD: POSTGRES_PASSWORD
+      rabbitmq:
+        RABBITMQ_USER: username
+        RABBITMQ_PASSWORD: password
+    config:
+      db:
+        POSTGRES_HOST: host
+        POSTGRES_PORT: port
+      rabbitmq:
+        RABBITMQ_HOST: host
+        RABBITMQ_PORT: port
 
-app:
-  dbSecretsName: rabbitmq
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc

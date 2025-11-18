@@ -7,8 +7,8 @@ metadata:
     {{- include "flower.labels" . | nindent 4 }}
 spec:
   selector:
-    app: {{ .Values.global.name }}
+    {{- include "flower.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
-      port: {{ .Values.env.port }}
-      targetPort: {{ .Values.env.port }}
+      port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}

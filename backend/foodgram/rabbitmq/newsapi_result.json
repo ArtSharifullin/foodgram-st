@@ -1,0 +1,1306 @@
+{
+  "status": "ok",
+  "totalResults": 27777,
+  "articles": [
+    {
+      "source": {
+        "id": "wired",
+        "name": "Wired"
+      },
+      "author": "Sofia Barnett",
+      "title": "AI Is Changing What High School STEM Students Study",
+      "description": "A degree in computer science used to promise a cozy career in tech. Now, students’ ambitions are shaped by AI, in fields that blend computing with analysis, interpretation, and data.",
+      "url": "https://www.wired.com/story/stem-high-school-students-artficial-intelligence/",
+      "urlToImage": "https://media.wired.com/photos/68f24e941ad7b00832d90759/191:100/w_1280,c_limit/GettyImages-738776983.jpg",
+      "publishedAt": "2025-10-20T09:30:00Z",
+      "content": "In the early 2010s, nearly every STEM-savvy college-bound kid heard the same advice: Learn to code. Python was the new Latin. Computer science was the ticket to a stable, well-paid, future-proof life… [+2555 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "John Elliot V",
+      "title": "Making Math Less Stressful with a Python Super-Calculator",
+      "description": "In a recent write-up, [David Delony] explains how he built a Wolfram Mathematica-like engine with Python. Core to the system is SymPy for symbolic math support. [David] said being able to work with…",
+      "url": "https://hackaday.com/2025/10/26/making-math-less-stressful-with-a-python-super-calculator/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/tips_vs_bill_regression-banner.jpg",
+      "publishedAt": "2025-10-26T17:00:21Z",
+      "content": "In a recent write-up, [David Delony] explains how he built a Wolfram Mathematica-like engine with Python.\r\nCore to the system is SymPy for symbolic math support. [David] said being able to work with … [+1257 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "CNET"
+      },
+      "author": "Gael Cooper",
+      "title": "Today's NYT Strands Hints, Answers and Help for Oct. 17 #593",
+      "description": "Here's today's Strands answers and hints. These clues will help you solve The New York Times' popular puzzle game, Strands, every day.",
+      "url": "https://www.cnet.com/tech/gaming/todays-nyt-strands-hints-answers-and-help-for-oct-17-593/",
+      "urlToImage": "https://www.cnet.com/a/img/resize/094c1ae2618509665dadbce8d57e534b601ba85e/hub/2024/05/15/859c9110-e596-432b-8690-95e6102759c9/nyt-new-york-times-strands-2054.jpg?auto=webp&fit=crop&height=675&width=1200",
+      "publishedAt": "2025-10-16T20:00:03Z",
+      "content": "Looking for the most recent Strands answer? Click here for our daily Strands hints, as well as our daily answers and hints for The New York Times Mini Crossword, Wordle, Connections and Connections: … [+1748 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Zackoverflow.dev"
+      },
+      "author": null,
+      "title": "How often does Python allocate?",
+      "description": "The answer is \"very often\"",
+      "url": "https://zackoverflow.dev/writing/how-often-does-python-allocate/",
+      "urlToImage": "https://zackoverflow.dev/writing/how-often-does-python-allocate/asdjsk",
+      "publishedAt": "2025-11-01T22:34:43Z",
+      "content": "10/30/2025How often does Python allocate?\r\nThe answer is \"very often\"\r\nI recently saw this tweet which I thought was funny:\r\nHow true is it?\r\nI was surprised to learn that CPython represents each int… [+10003 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hyperflask.dev"
+      },
+      "author": null,
+      "title": "Blending SQL and Python with Sqlorm",
+      "description": "Comments",
+      "url": "https://hyperflask.dev/blog/2025/11/11/blending-sql-and-python-with-sqlorm/",
+      "urlToImage": null,
+      "publishedAt": "2025-11-11T09:53:27Z",
+      "content": "At $dayjob, I use SQLAlchemy as an ORM. It's an amazing project, powerful and flexible. However, I've always felt some of the design choices didn't fit how I like to use an ORM. Notably:\r\n<ul><li>I'm… [+3771 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.io"
+      },
+      "author": null,
+      "title": "Archimedes – A Python toolkit for hardware engineering",
+      "description": "Comments",
+      "url": "https://pinetreelabs.github.io/archimedes/blog/2025/introduction.html",
+      "urlToImage": null,
+      "publishedAt": "2025-11-15T19:29:32Z",
+      "content": "A Python toolkit for hardware engineering\r\nBy Jared Callaham 6 Oct 2025\r\nA great engineer (controls being no exception) has to be part hacker, part master craftsman.\r\nYou have to be a hacker because … [+22371 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Vercel.app"
+      },
+      "author": "yakko's blog",
+      "title": "Why We Migrated from Python to Node.js",
+      "description": "Comments",
+      "url": "https://portfolio-blog-starter.vercel.app/blog/python-to-node",
+      "urlToImage": "https://portfolio-blog-starter.vercel.app/og?title=Why%20we%20migrated%20from%20Python%20to%20Node.js",
+      "publishedAt": "2025-11-03T16:35:44Z",
+      "content": "We just did something crazy: we completely rewrote our backend from Python to Node just one week after our launch.\r\nWe did this so we can scale. Yes, scale. A week in.\r\nIn some ways, it's a good time… [+10723 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Emily.space"
+      },
+      "author": "Dr. Emily L. Hunt",
+      "title": "Uv is the best thing to happen to the Python ecosystem in a decade",
+      "description": "Released in 2024, uv is hands-down the best tool for managing Python installations and dependencies. Here's why.",
+      "url": "https://emily.space/posts/251023-uv",
+      "urlToImage": "https://emily.space/assets/posts/251023-uv/header.webp",
+      "publishedAt": "2025-10-29T18:57:29Z",
+      "content": "Its 2025. Does installing Python, managing virtual environments, and synchronizing dependencies between your colleagues really have to be so difficult? Well no! A brilliant new tool called uv came ou… [+7575 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "Athe-kunal",
+      "title": "Intervaltree with Rust Back End",
+      "description": "Contribute to Athe-kunal/intervaltree_rs development by creating an account on GitHub.",
+      "url": "https://github.com/Athe-kunal/intervaltree_rs",
+      "urlToImage": "https://opengraph.githubassets.com/fbd667c3616ab18c4dcd1e03b001d9de19371f0fd7e808a1e6013cbbd7c54ced/Athe-kunal/intervaltree_rs",
+      "publishedAt": "2025-11-02T07:04:59Z",
+      "content": "This crate exposes an interval tree implementation written in Rust to Python via PyO3. The Python wrapper provides the ability to build a tree from tuples, insert additional intervals, search for ove… [+1369 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Cr.yp.to"
+      },
+      "author": null,
+      "title": "Daniel J. Bernstein updated cdb (Constant database) to go beyond 4GB",
+      "description": "Comments",
+      "url": "https://cdb.cr.yp.to/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-22T00:11:09Z",
+      "content": "cdb is a fast, reliable, simple package\r\nfor creating and reading constant databases.\r\nThe cdb database structure provides several features:More packages saying that they provide tools for you to use… [+1743 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Baro.dev"
+      },
+      "author": null,
+      "title": "The future of Python web services looks GIL-free",
+      "description": "Web frameworks benchmarks on CPython 3.14t looks promising",
+      "url": "https://blog.baro.dev/p/the-future-of-python-web-services-looks-gil-free",
+      "urlToImage": null,
+      "publishedAt": "2025-10-19T10:38:25Z",
+      "content": "Python 3.14 was released at the beginning of the month. This release was particularly interesting to me because of the improvements on the \"free-threaded\" variant of the interpreter.\r\nSpecifically, t… [+14636 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "pyscripter",
+      "title": "Pyscripter – open-source Python IDE written in Delphi",
+      "description": "Pyscripter is a feature-rich but lightweight Python IDE - pyscripter/pyscripter",
+      "url": "https://github.com/pyscripter/pyscripter",
+      "urlToImage": "https://repository-images.githubusercontent.com/41313736/d3621c1f-1445-4b0a-add3-ba3a7dd91f3e",
+      "publishedAt": "2025-10-20T02:03:40Z",
+      "content": "PyScripter is a free and open-source Python Integrated Development\r\nEnvironment (IDE) created with the ambition to become competitive in\r\nfunctionality with commercial Windows-based IDEs available fo… [+18 chars]"
+    },
+    {
+      "source": {
+        "id": "hacker-news",
+        "name": "Hacker News"
+      },
+      "author": null,
+      "title": "Valori – A Python-native Vector Database I built from scratch",
+      "description": "Comments",
+      "url": "https://news.ycombinator.com/item?id=45864900",
+      "urlToImage": null,
+      "publishedAt": "2025-11-09T11:52:18Z",
+      "content": "Ive been working on a project called Valori, a Python-native vector database I built from the ground up not by reinventing every algorithm, but by wiring together efficient, well-known indexing and s… [+1198 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Jenny List",
+      "title": "British Train Departures As They Should Be Viewed",
+      "description": "The first generation of real-time train information screens for British railways came in the form of suspended color CRTs in familiar rounded fiberglass housings. They were a ubiquitous sight across …read more",
+      "url": "https://hackaday.com/2025/10/21/british-train-departures-as-they-should-be-viewed/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/bbc-trains-featured.jpg",
+      "publishedAt": "2025-10-21T15:30:00Z",
+      "content": "The first generation of real-time train information screens for British railways came in the form of suspended color CRTs in familiar rounded fiberglass housings. They were a ubiquitous sight across … [+928 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Maya Posch",
+      "title": "Satellite Snooping Reveals Sensitive Unencrypted Data",
+      "description": "In an era where running a website without HTTPS is shunned, and everyone wants you to encrypt your DNS queries, you’d expect that the telecommunications back-ends are secured tightly as …read more",
+      "url": "https://hackaday.com/2025/10/27/satellite-snooping-reveals-sensitive-unencrypted-data/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/low_cost_geo_satellite_scanning_hardware_setup_wenyi_zhang_et_al_2025.jpg",
+      "publishedAt": "2025-10-27T11:00:09Z",
+      "content": "In an era where running a website without HTTPS is shunned, and everyone wants you to encrypt your DNS queries, you’d expect that the telecommunications back-ends are secured tightly as well. Especia… [+1266 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Jenny List",
+      "title": "Another Thermal Printer, Conquered",
+      "description": "The arrival of cheap thermal printer mechanisms over the last few years has led to a burst of printer hacking in our community, and we’re sure many of you will like us have one knocking aroun…",
+      "url": "https://hackaday.com/2025/11/11/another-thermal-printer-conquered/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/11/thermal-printer-featured.jpg",
+      "publishedAt": "2025-11-11T09:00:30Z",
+      "content": "The arrival of cheap thermal printer mechanisms over the last few years has led to a burst of printer hacking in our community, and we’re sure many of you will like us have one knocking around somewh… [+897 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Stonecharioteer.com"
+      },
+      "author": null,
+      "title": "Some Smalltalk about Ruby Loops",
+      "description": "Sending a message about why you shouldn't write `for` loops in Ruby.",
+      "url": "https://tech.stonecharioteer.com/posts/2025/ruby-loops/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-23T12:23:34Z",
+      "content": "Let’s talk about loops.\r\n<table><tr><td>1\r\n2\r\n3\r\n</td><td>foriin(1..10)doputs\"i= #{i}\"end\r\n</td></tr></table>\r\nThree weeks ago, when I was new to Ruby, I focussed on this. This was a loop. I\r\nmean, I… [+14416 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Iommi.rocks"
+      },
+      "author": null,
+      "title": "Iommi – your first pick for a Django power chord",
+      "description": "iommi is a productivity toolkit for Django: ship forms, tables, pages, and an admin with tiny amounts of code and zero boilerplate.",
+      "url": "https://iommi.rocks/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-25T11:40:09Z",
+      "content": "iommi is a productivity toolkit for Django that lets you ship complex UIs fast: forms, tables, pages, and an admin - without the boilerplate. Compose powerful parts, keep your code tiny, and stay in … [+6 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Thenewstack.io"
+      },
+      "author": "David Cassel",
+      "title": "Python Software Foundation gets a donor surge after rejecting federal grant",
+      "description": "The Python Software Foundation's courageous refusal of an anti-DEI $1.5 million federal grant immediately triggered an extraordinary outpouring of community support.",
+      "url": "https://thenewstack.io/psf-gets-a-donor-surge-after-rejecting-anti-dei-federal-grant/",
+      "urlToImage": "https://cdn.thenewstack.io/media/2025/04/50c2b944-python.png",
+      "publishedAt": "2025-11-09T17:28:45Z",
+      "content": "PSF Gets a Donor Surge After Rejecting Anti-DEI Federal Grant\r\nThe Python Software Foundation's courageous refusal of an anti-DEI $1.5 million federal grant immediately triggered an extraordinary out… [+28 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Dr. Marius Shekow",
+      "title": "Docker Image Security – Teil 3: Minimale, sichere Container-Images selbst bauen",
+      "description": "Minimale Container-Images reduzieren Schwachstellen durch weniger Komponenten. Anleitung für eigene Images mit Ubuntu Chiseled, WolfiOS und Azure Linux.",
+      "url": "https://www.heise.de/hintergrund/Docker-Image-Security-Teil-3-Minimale-sichere-Container-Images-selbst-bauen-10964627.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/6/7/3/1/1/shutterstock_1026108619-b1c1cc03479bdfea.jpg",
+      "publishedAt": "2025-11-01T07:02:00Z",
+      "content": "Inhaltsverzeichnis\r\nMinimale Container-Images verzichten auf Komponenten wie Shells oder Paketmanager, die zur Laufzeit normalerweise nicht gebraucht werden. Sie sind auch als \"distroless\" oder \"chis… [+8647 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Dave Rowntree",
+      "title": "Building A DIY Ryzen-Based PC!",
+      "description": "This project gives a whole new meaning to DIY PC. We don’t know how capable you were as a teenager, but could you have designed your own Ryzen-based mini PC? Whilst making repairs to laptop i…",
+      "url": "https://hackaday.com/2025/11/02/building-a-diy-ryzen-based-pc/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/Screenshot-From-2025-10-23-16-57-27.png",
+      "publishedAt": "2025-11-02T12:00:26Z",
+      "content": "This project gives a whole new meaning to DIY PC. We don’t know how capable you were as a teenager, but could you have designed your own Ryzen-based mini PC?\r\nWhilst making repairs to laptop internal… [+3349 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "lightly-ai",
+      "title": "LightlyStudio – an open-source multimodal data curation and labeling tool",
+      "description": "Curate, Annotate, and Manage Your Data in LightlyStudio. - lightly-ai/lightly-studio",
+      "url": "https://github.com/lightly-ai/lightly-studio",
+      "urlToImage": "https://opengraph.githubassets.com/d7717eabf0fc179a54df6dd755bed9d20dcb51788c6839a7cec3bc063609903f/lightly-ai/lightly-studio",
+      "publishedAt": "2025-10-21T16:09:43Z",
+      "content": "Curate, Annotate, and Manage Your Data in LightlyStudio.\r\nWe at Lightly created LightlyStudio, an open-source tool designed to unify your data workflows from curation, annotation and management in a … [+6764 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Blogspot.com"
+      },
+      "author": "Loren Crary",
+      "title": "PSF has withdrawn $1.5M proposal to US Government grant program",
+      "description": "Comments",
+      "url": "https://pyfound.blogspot.com/2025/10/NSF-funding-statement.html",
+      "urlToImage": "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/psf/grants/report-2006-10/psf-logo.png",
+      "publishedAt": "2025-10-27T15:12:08Z",
+      "content": "In January 2025, the PSF submitted a proposal to the US government National Science Foundation under the Safety, Security, and Privacy of Open Source Ecosystems program to address structural vulnerab… [+5007 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "sql-hkr",
+      "title": "Show HN: I built an 8-bit CPU simulator in Python from scratch",
+      "description": "A tiny CPU simulator written in Python. Contribute to sql-hkr/tiny8 development by creating an account on GitHub.",
+      "url": "https://github.com/sql-hkr/tiny8",
+      "urlToImage": "https://opengraph.githubassets.com/a74e5f5ff772249039fee38a7db55bfcd771b2d2123bb658ca8510275058f874/sql-hkr/tiny8",
+      "publishedAt": "2025-10-24T13:13:38Z",
+      "content": "Tiny8 is a lightweight toolkit that allows you to explore how computers work at their core through small-scale memory models, handcrafted assembly, and lightweight in-memory data structures.\r\nDesigne… [+7510 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "0xeb",
+      "title": "Fastmcpp (Fastmcp for C++)",
+      "description": "C++ port of the fastmcp Python library. Contribute to 0xeb/fastmcpp development by creating an account on GitHub.",
+      "url": "https://github.com/0xeb/fastmcpp",
+      "urlToImage": "https://opengraph.githubassets.com/c474fff3a45991ad30d71d4ce64fa11d943a868778663ddc151b3fce86f393f0/0xeb/fastmcpp",
+      "publishedAt": "2025-11-14T06:25:51Z",
+      "content": "Highperformance C++ implementation of the Model Context Protocol (MCP), with support for tools, resources, prompts, and multiple transport layers (STDIO, HTTP/SSE, WebSocket).\r\nfastmcpp is a C++ port… [+5314 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "John Elliot V",
+      "title": "Hacking a Banned Chinese Security Camera",
+      "description": "Over on YouTube [Matt Brown] hacks a Chinese security camera recently banned by the US government. If you didn’t hear about this you can find out more over here: Major US online retailers rem…",
+      "url": "https://hackaday.com/2025/10/18/hacking-a-banned-chinese-security-camera/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/dahua-banner.jpg",
+      "publishedAt": "2025-10-18T08:00:37Z",
+      "content": "Over on YouTube [Matt Brown] hacks a Chinese security camera recently banned by the US government. If you didn’t hear about this you can find out more over here: Major US online retailers remove list… [+1605 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Maya Posch",
+      "title": "Making YouTube Work in the Netscape 4.5 Browser on Windows 98",
+      "description": "The World Wide Web of the 90s was a magical place, where you couldn’t click two links without getting bombarded with phrases such as the Information Super Highway and Multimedia Experience. O…",
+      "url": "https://hackaday.com/2025/10/31/making-youtube-work-in-the-netscape-4-5-browser-on-windows-98/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/10/youtube_in_netscape_4.5_windows_98_throaty_mumbo.jpg",
+      "publishedAt": "2025-11-01T05:00:33Z",
+      "content": "The World Wide Web of the 90s was a magical place, where you couldn’t click two links without getting bombarded with phrases such as the Information Super Highway and Multimedia Experience. Of course… [+1654 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Yahoo Entertainment"
+      },
+      "author": "Mike Taylor",
+      "title": "Researchers reveal major key in hunting down Florida's invasive pythons: 'Significantly increase removal efficiency'",
+      "description": "It’s possible that their population numbers in the hundreds of thousands.",
+      "url": "https://www.yahoo.com/news/articles/researchers-reveal-major-key-hunting-100000413.html",
+      "urlToImage": "https://s.yimg.com/ny/api/res/1.2/9qbk3fVeb0Ed5DQ7n3IX4Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU7Y2Y9d2VicA--/https://media.zenfs.com/en/the_cool_down_737/1dc65a32cc60f42baafd39d4eefdf929",
+      "publishedAt": "2025-10-27T10:00:00Z",
+      "content": "Burmese pythons have taken over the Florida Everglades in just a few decades, but there is hope that the invasive species can be pulled back. A new study reveals how that might be done.\r\nPublished in… [+2630 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Mit.edu"
+      },
+      "author": "Rachit Nigam",
+      "title": "Transpiler, a Meaningless Word (2023)",
+      "description": "Comments",
+      "url": "https://people.csail.mit.edu/rachit/post/transpiler/",
+      "urlToImage": null,
+      "publishedAt": "2025-11-06T20:26:58Z",
+      "content": "This tool is different from a compiler which often has a complex frontend, an optimizing middle end, and code generators for various backends.\r\nThe big problem around most of the arguments to disting… [+6937 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Niklas Dierking",
+      "title": "heise+ | Loslegen mit dem Instant-Fileserver copyparty",
+      "description": "Das Open-Source-Projekt copyparty verwandelt fast jeden Computer im Handumdrehen in einen Fileserver. Mit unserer Anleitung kann die Kopierparty starten.",
+      "url": "https://www.heise.de/ratgeber/Loslegen-mit-dem-Instant-Fileserver-copyparty-10717729.html?wt_mc=rss.red.ho.ho.atom.beitrag_plus.beitrag_plus",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/5/0/7/2/6/Copyparty_Kopie-936e271ae652c88e.jpg",
+      "publishedAt": "2025-10-29T12:30:00Z",
+      "content": "Inhaltsverzeichnis\r\nDas beschauliche Open-Source-Projekt copyparty füllt eine Nische, denn für den Dateiaustausch zwischen mehreren Geräten gibt es wahrlich genug Lösungen. Die meisten Smartphones un… [+1002 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Theregister.com"
+      },
+      "author": "Richard Speed",
+      "title": "Python slithers faster by adding lazy imports that load code after startup",
+      "description": "PEP 810 approved following lengthy debate among developer community\nPython programs are set to get faster startup times with PEP 810 \"Explicit lazy imports,\" which allows scripts to defer loading imported libraries until they're actually needed rather than at…",
+      "url": "https://www.theregister.com/2025/11/04/python_to_embrace_lazy_imports/",
+      "urlToImage": "https://regmedia.co.uk/2021/11/30/python.jpg",
+      "publishedAt": "2025-11-04T16:51:14Z",
+      "content": "Python programs are set to get faster startup times with PEP 810 \"Explicit lazy imports,\" which allows scripts to defer loading imported libraries until they're actually needed rather than at startup… [+2030 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "samim23",
+      "title": "VortexNet: Neural network based on fluid dynamics",
+      "description": "VortexNet: Neural Computing through Fluid Dynamics - samim23/vortexnet",
+      "url": "https://github.com/samim23/vortexnet",
+      "urlToImage": "https://opengraph.githubassets.com/5d12874a780cd2b46be79b9be6db668087077e4bcc726bb6569108b2651ccd2d/samim23/vortexnet",
+      "publishedAt": "2025-10-22T22:51:58Z",
+      "content": "This repository contains toy implementations of the concepts introduced in the research paper VortexNet: Neural Computing through Fluid Dynamics. These examples demonstrate how PDE-based vortex layer… [+1807 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.io"
+      },
+      "author": null,
+      "title": "R interface to Apple's MLX library",
+      "description": "An R interface to Apple's MLX library, allowing array operations on Apple Silicon GPUs and CPUs. Features include shared memory between the chips, CUDA support, lazy evaluation and automatic differentiation.",
+      "url": "https://hughjonesd.github.io/Rmlx/index.html",
+      "urlToImage": null,
+      "publishedAt": "2025-11-03T21:47:41Z",
+      "content": "R interface to Apples MLX (Machine Learning eXchange) library.Rmlx provides an R interface to Apples MLX framework, enabling high-performance GPU computing on Apple Silicon.\r\nThis package was vibe-co… [+378 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Piglei.com"
+      },
+      "author": "piglei,piglei2007@gmail.com",
+      "title": "Why is Python's OrderedDict ordered?",
+      "description": "piglei's blog",
+      "url": "https://www.piglei.com/articles/en-why-is-python-ordereddict-ordered/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-30T03:13:23Z",
+      "content": "It is 2025, and debates about whether Python dictionaries preserve order have mostly vanished. Ever since Python 3.7 wrote dictionaries preserve insertion order into the language spec in 2018, develo… [+7060 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Kotaku"
+      },
+      "author": "Claire Jackson",
+      "title": "Arc Raiders: The Best Cheat Sheets And Third-Party Resources",
+      "description": "Keep track of the essentials and plan your way to greatness with these helpful resources\nThe post Arc Raiders: The Best Cheat Sheets And Third-Party Resources appeared first on Kotaku.",
+      "url": "https://kotaku.com/arc-raiders-cheat-sheet-crafting-guns-ardb-wiki-2000644449",
+      "urlToImage": "https://kotaku.com/app/uploads/2025/11/helmetmain-1200x675.jpg",
+      "publishedAt": "2025-11-14T21:18:01Z",
+      "content": "Arc Raiders is dense. That happens to be part of why I love it so much. But theres no way around it: Theres a lot of stuff to keep track of in this game, from craftable materials, to weapon mods, to … [+4664 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Theregister.com"
+      },
+      "author": "Tim Anderson",
+      "title": "Forking confusing: Vulnerable Rust crate exposes uv Python packager",
+      "description": "Forks of forks of forks, but which ones are patched?\nA vulnerability in the popular Rust crate async-tar has affected the fast uv Python package manager, which uses a forked version that's now patched – but the most widely downloaded version remains unfixed.……",
+      "url": "https://www.theregister.com/2025/10/22/vulnerable_rust_crate/",
+      "urlToImage": "https://regmedia.co.uk/2023/05/03/python_shutterstock.jpg",
+      "publishedAt": "2025-10-22T13:15:06Z",
+      "content": "A vulnerability in the popular Rust crate async-tar has affected the fast uv Python package manager, which uses a forked version that's now patched but the most widely downloaded version remains unfi… [+2514 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Sonja Wild",
+      "title": "heise+ | Spaß beim Programmieren lernen: Spiele vermitteln Logik- und Programmierwissen",
+      "description": "Rätselspaß, Aufbauspiel, Automatisieren: Programmierspiele erleichtern es, Programmierlogik und Programmiersprachen wie Lua, Java und Python zu erlernen.",
+      "url": "https://www.heise.de/tests/Spass-beim-Programmieren-lernen-Spiele-vermitteln-Logik-und-Programmierwissen-10636870.html?wt_mc=rss.red.ho.ho.atom.beitrag_plus.beitrag_plus",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/3/3/0/0/5/https___xp.heise.de_fileserver_images_2528_615020666817664_lmd.programmi_2015297551_thorsten_huebner_online-6fb50e6b6f4a8e99.jpg",
+      "publishedAt": "2025-11-07T14:00:00Z",
+      "content": "Inhaltsverzeichnis\r\nSpielend programmieren lernen klingt sehr verlockend und vor allem mühelos. Deshalb versucht eine ganze Reihe von Computerspielen auf ganz unterschiedliche Weise, Programmierlogik… [+1697 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "enamored_poc",
+      "title": "Магия Python: почему list — не список, а dict находит всё мгновенно",
+      "description": "Каждый, кто прошел путь от print(\"Hello, World!\") до своего первого серьезного проекта на Python, знает и любит списки и словари. Но как часто мы задумываемся, почему они работают именно так, а не иначе? Эта статья — для тех, кто готов пойти дальше поверхност…",
+      "url": "https://habr.com/ru/articles/965170/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/f36/ac6/c50/f36ac6c50806b063a74097b386b2457f.png",
+      "publishedAt": "2025-11-11T08:04:58Z",
+      "content": ", print(\"Hello, World!\") Python, . , , ? , API CPython. , list , , - O(1). , .\r\n 1: (list) \r\n Python, list . , . , , \"\" ? , \" \" .\r\n : list , \r\n , : Python list (linked list), . , CPython list (dynami… [+2184 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Hackaday"
+      },
+      "author": "Aaron Beckendorf",
+      "title": "Mesmerizing Marble Runs from Procedural Generation",
+      "description": "There are few things that can keep a certain kind of mechanically-inclined mind entranced as well as a marble run, and few structures that look as interestingly organic as procedurally-generated …read more",
+      "url": "https://hackaday.com/2025/11/09/mesmerizing-marble-runs-from-procedural-generation/",
+      "urlToImage": "https://hackaday.com/wp-content/uploads/2025/11/generative_marble_run.png",
+      "publishedAt": "2025-11-09T15:00:52Z",
+      "content": "There are few things that can keep a certain kind of mechanically-inclined mind entranced as well as a marble run, and few structures that look as interestingly organic as procedurally-generated desi… [+1775 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Dfir.ch"
+      },
+      "author": null,
+      "title": "Linux Capabilities Revisited",
+      "description": "Comments",
+      "url": "https://dfir.ch/posts/linux_capabilities/",
+      "urlToImage": "https://dfir.ch/",
+      "publishedAt": "2025-10-22T13:50:20Z",
+      "content": "Introduction\r\nNotes to kernel developers: The goal of capabilities is divide the power of superuser into pieces, such that if a program that has one or more capabilities is compromised, its power to … [+6991 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "yt-dlp",
+      "title": "Yt-dlp: External JavaScript runtime now required for full YouTube support",
+      "description": "This is a follow-up to #14404, which announced that yt-dlp will soon require an external JavaScript runtime (e.g. Deno) in order to fully support downloading from YouTube. With the release of yt-dl...",
+      "url": "https://github.com/yt-dlp/yt-dlp/issues/15012",
+      "urlToImage": "https://opengraph.githubassets.com/e1d096902be2a96bf6fa783179a69fe206ef192dfa4337175d0c6531f765bee2/yt-dlp/yt-dlp/issues/15012",
+      "publishedAt": "2025-11-12T10:12:53Z",
+      "content": "This is a follow-up to #14404, which announced that yt-dlp will soon require an external JavaScript runtime (e.g. Deno) in order to fully support downloading from YouTube.\r\nWith the release of yt-dlp… [+3944 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "gh-PonyM",
+      "title": "CLI to manage your SQL database schemas and migrations",
+      "description": "Collection of db and json-schemas. Contribute to gh-PonyM/shed development by creating an account on GitHub.",
+      "url": "https://github.com/gh-PonyM/shed",
+      "urlToImage": "https://opengraph.githubassets.com/e33ed24206e2a7e928a0cb5b1d6080ac2ee1ee671b510de251a2230214649e47/gh-PonyM/shed",
+      "publishedAt": "2025-11-02T06:23:24Z",
+      "content": "Are you doing some ETL project, you don't want to manage your database schema with raw SQL, and maybe validate\r\ndata from external tools using those schemas e.g. when using LLM output? Then this tool… [+2228 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Christoph Böttcher",
+      "title": "heise-Angebot: Last Call: KI und Data Science im Unternehmen – von Rohdaten zu Erkenntnissen",
+      "description": "In fünf Sessions lernen Teilnehmende ab dem 12.11., wie sie KI und Data Science einsetzen, um Datenquellen effektiv zu erschließen und Strategien abzuleiten.",
+      "url": "https://www.heise.de/news/Last-Call-KI-und-Data-Science-im-Unternehmen-von-Rohdaten-zu-Erkenntnissen-10783823.html",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/5/9/3/8/7/classroom-ki-datascience-unternehmen-banner-ticker-1920x1080px-486d381b28a660f1.png",
+      "publishedAt": "2025-11-03T11:00:00Z",
+      "content": "Viele Unternehmen verfügen über einen immensen Datenschatz zu eigenen Produkten, Userinnen und Usern, internen Arbeitsabläufen und mehr. Lange Zeit galt als Maxime, so viele Daten wie möglich zu samm… [+3559 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Zhimingwang.org"
+      },
+      "author": "Zhiming Wang",
+      "title": "The macOS LC_COLLATE hunt: Or why does sort order differently on macOS and Linux",
+      "description": "Comments",
+      "url": "https://blog.zhimingwang.org/macos-lc_collate-hunt",
+      "urlToImage": null,
+      "publishedAt": "2025-10-19T13:01:34Z",
+      "content": "Today I noticed something interesting while working with a sorted list of package names: sort(1) orders them differently on macOS and Linux (Ubuntu 20.04). A very simple example, with locale set expl… [+7575 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "Eco_coder",
+      "title": "Пушкин vs Лермонтов: поиск истины на Python",
+      "description": "Можно ли с помощью Python и математических метрик лучше понять поэзию? В этой статье я покажу, как с помощью кода можно количественно сравнить стили Александра Пушкина и Михаила Лермонтова. Читать далее",
+      "url": "https://habr.com/ru/articles/965824/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/e69/cc6/ac8/e69cc6ac8bd6810501405e29885442d2.jpg",
+      "publishedAt": "2025-11-12T18:29:57Z",
+      "content": "Python . , , .\r\n Python ? , . , , . . , .\r\n 1837 . . « ». \r\n , , , , . « , , » - . , , 19 . , , : «... ( ), ».\r\n . ( ), .\r\n pushkin_text = \"\"\"\r\n :\r\n ,\r\n ,\r\n .\r\n\"\"\"\r\nlermontov_text = \"\"\"\r\n !\r\n !\r\n , ,… [+2765 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "bytec0de11",
+      "title": "Список 10 лучших IDE и редакторов кода для веб‑разработчиков",
+      "description": "Веб-разработка — одна из самых динамично развивающихся областей IT. Чтобы работать эффективно и создавать качественный код, важно выбрать правильный инструмент. В данной статье мы рассмотрим 10 лучших IDE и редакторов кода, которые помогут веб-разработчикам у…",
+      "url": "https://habr.com/ru/articles/964448/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/e04/eeb/e1d/e04eebe1d72204b8b28e46c28b3f3515.png",
+      "publishedAt": "2025-11-08T19:51:25Z",
+      "content": "- IT. , . 10 IDE , - , .\r\n IT- , Telegram-. . .\r\n:\r\n «» .html. (IDE) . \r\n IDE :\r\n IDE , , - . :\r\n IDE.\r\n, , IDE . - . IDE .\r\n :\r\n<ul><li>, IDE , . .\r\n</li><li>: , , , , .\r\n</li><li>, , . IDE , .\r\n</l… [+3790 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Tensorflow.org"
+      },
+      "author": null,
+      "title": "Pose Animator – An open source tool to bring SVG characters to life (2020)",
+      "description": "The TensorFlow blog contains regular news from the TensorFlow team and the community, with articles on Python, TensorFlow.js, TF Lite, TFX, and more.",
+      "url": "https://blog.tensorflow.org/2020/05/pose-animator-open-source-tool-to-bring-svg-characters-to-life.html",
+      "urlToImage": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtZ6VXz_hF6aLYS-494KnbiPg-rStHJujKJ4V7uzxZ7AsuMCFwilkLlA3jMM7ZPHYY3lbqtX8Dwm_5Jr3cuf4y6nQogc0_vvsTpwsjFayukU5yjJg6TrmibQLZqjBlCuD4gY7Rcu908gs/w1200-h630-p-k-no-nu/movementgif.gif",
+      "publishedAt": "2025-11-04T12:26:28Z",
+      "content": "https://blog.tensorflow.org/2020/05/pose-animator-open-source-tool-to-bring-svg-characters-to-life.html\r\nhttps://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtZ6VXz_hF6aLYS-494KnbiPg-rStHJujKJ… [+10404 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "petrastegaev1985 (Wildberries & Russ)",
+      "title": "OTA-система обновления прошивок для 30 000 устройств в закрытом контуре: опыт Wildberries",
+      "description": "Привет, Хабр! Меня зовут Пётр Растегаев, и я представляю команду WebDevices компании Wildberries. Сегодня я расскажу о нашей системе обновления прошивок устройств: как мы вообще дошли до жизни такой\r\n текущих принципов, какой стек технологий выбрали, какие ар…",
+      "url": "https://habr.com/ru/companies/wildberries/articles/957556/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/dd5/c9a/ab4/dd5c9aab4f24058153115e2d73904d8e.png",
+      "publishedAt": "2025-10-20T13:36:02Z",
+      "content": ", ! , WebDevices Wildberries. : \r\n , , . ;)\r\n: \r\n Wildberries 130 , 30 000 -. , , , . -, , WMS ( ), . .\r\n : , , , , .\r\n : , . , , . ?\r\n-, . , : , , .\r\n-, . , .\r\n-, . , .\r\n : . . , .\r\n , : ? . - ; . 3… [+1735 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "sashashi (Yandex Cloud & Yandex Infrastructure)",
+      "title": "Как мы автоматизировали сеть в облаке и как нам с этим помогла Аннушка",
+      "description": "Меня зовут Саша Шилкин, я работаю в Yandex Infrastructure и занимаюсь автоматизацией сети. Сегодня расскажу про обновление конфигурации сетевых устройств и про то, как мы его делаем в нашей команде: как начинали, как менялась конфигурация, какие для этого был…",
+      "url": "https://habr.com/ru/companies/yandex_cloud_and_infra/articles/961768/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/112/12d/f61/11212df6121487d6806b96d857038b8b.png",
+      "publishedAt": "2025-11-01T07:00:42Z",
+      "content": ",  Yandex Infrastructure .    ,     :  ,   ,    . \r\n     .   ,     .   , ,     , . \r\n ,   ,  .     ,   , .     ,     . \r\n    nexthop,   ,    ,  .\r\n   nexthop 2025     BareMetal  , ,   19 . \r\n \r\n  . ,… [+2957 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "Adalarus",
+      "title": "Тестирование в школе, или Unix-way в системе образования",
+      "description": "Здравствуйте. Я не айтишник — я учитель истории с более чем десятилетним стажем. Но информационные технологии всегда были моей страстью и надёжным инструментом в работе.В этой статье я хочу рассказать о собственном опыте внедрения системы тестирования в школь…",
+      "url": "https://habr.com/ru/articles/964996/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/964996/565d5608f903bbd1395dd676d0a31e42/",
+      "publishedAt": "2025-11-10T15:16:04Z",
+      "content": ". . .\r\n . Python unix-way: , . - , , .\r\n.\r\n , . : .\r\n : , , , . , : .\r\n. , . , : , .\r\n . , , . , . .\r\n : , , , , .\r\n.\r\n , , - . : «» .\r\n : . , . .\r\n monkey-\r\n- . Python 80 . questionary.\r\n :\r\n| |||..… [+388 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Korben.info"
+      },
+      "author": "Korben",
+      "title": "Deep Eye - Le scanner de vulns multi-IA",
+      "description": "Ce serait cool si on pouvait réunir les Avengers des LLMs pour les faire bosser ensemble sur de la recherche de faille de sécurité ? OpenAI, Anthropic, X.AI et Meta ensemble contre les forces du mal, c’est maintenant possible avec\nDeep Eye\n, un super scanner …",
+      "url": "https://korben.info/deep-eye-scanner-vulnerabilites-ai-openai-claude-g.html",
+      "urlToImage": "https://korben.info/deep-eye-scanner-vulnerabilites-ai-openai-claude-g/deep-eye-scanner-vulnerabilites-ai-openai-claude-g-1.png",
+      "publishedAt": "2025-10-27T10:47:30Z",
+      "content": "Ce serait cool si on pouvait réunir les Avengers des LLMs pour les faire bosser ensemble sur de la recherche de faille de sécurité ? OpenAI, Anthropic, X.AI et Meta ensemble contre les forces du mal,… [+2342 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Dadgum.com"
+      },
+      "author": null,
+      "title": "Computer Science Courses That Don't Exist, but Should (2015)",
+      "description": "Comments",
+      "url": "https://prog21.dadgum.com/210.html",
+      "urlToImage": null,
+      "publishedAt": "2025-10-24T02:22:07Z",
+      "content": "Computer Science Courses that Don't Exist, But Should\r\nCSCI 2100: Unlearning Object-Oriented ProgrammingDiscover how to create and use variables that aren't inside of an object hierarchy. Learn about… [+1189 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "ilyasch",
+      "title": "Сравнение алгоритмов сортировки на Python с Pygame-визуализацией",
+      "description": "Когда объясняешь школьникам или студентам, как работает сортировка, графика говорит громче слов. Наверняка, в интернете полно обзоров и сравнительных анализов различных алгоритмов сортировки, но я не нашел ничего что объединяло бы самые популярные алгоритмы в…",
+      "url": "https://habr.com/ru/articles/960178/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/57c/f9d/5d5/57cf9d5d52c71e94f69e32acf1d7cdf5.png",
+      "publishedAt": "2025-10-25T16:56:56Z",
+      "content": ", , . , , . , , .\r\n« », O(n log n)., «» , QuickSort , .\r\n : , , .\r\nPygame, ( )., ., .\r\n :\r\nPython ( ):\r\n<table><tr><th></th><th></th></tr><tr><td></td><td>Bubble, Selection, Insertion\r\n</td></tr><tr>… [+1617 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "slav-vik",
+      "title": "Как писать код, который переживёт вас: минимализм, читаемость и долговечность в больших системах",
+      "description": "Мы все пишем код, но редко задумываемся, сколько он проживёт без нас. Этот текст — о выживании кода во времени: как писать так, чтобы через пять лет проект не превратился в болото. Без догматизма, с примерами, с болью и, надеюсь, с долей самоиронии. Читать да…",
+      "url": "https://habr.com/ru/articles/958164/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/958164/93eabfb39f9dbc45ab7ff015dce3f91f/",
+      "publishedAt": "2025-10-20T08:09:27Z",
+      "content": ", , . : , . , , , , .\r\n: « ?» git blame .. . . , , , .\r\n , , , . , , , .\r\n , . , . «-» .\r\n, , . . « », - .\r\n , . : , , , .\r\n. API . , . , .\r\n :\r\n# Python 3.12\r\ndef validate_user(user: dict) -&gt; boo… [+1133 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "cisco-ai-defense",
+      "title": "Cisco opensourced MCP-Scanner for finding vulnerabilties in MCP server",
+      "description": "Scan MCP Servers for vulnerabilities. Contribute to cisco-ai-defense/mcp-scanner development by creating an account on GitHub.",
+      "url": "https://github.com/cisco-ai-defense/mcp-scanner",
+      "urlToImage": "https://opengraph.githubassets.com/1e28946e09f06bb7e8875ae9a0e1ae4341efe23383a39fdcde57193529705ff7/cisco-ai-defense/mcp-scanner",
+      "publishedAt": "2025-10-27T17:18:39Z",
+      "content": "A Python tool for scanning MCP (Model Context Protocol) servers and tools for potential security vulnerabilities. The MCP Scanner combines Cisco AI Defense inspect API, YARA rules and LLM-as-a-judge … [+11498 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "enamored_poc",
+      "title": "Разбираемся со звёздочками: понятное руководство по *args и **kwargs для начинающих",
+      "description": "Многие начинающие разработчики обходят *args и **kwargs стороной, считая их чем-то необязательным или слишком сложным. Но на самом деле, понимание этого механизма — это качественный скачок в вашем умении писать чистый, масштабируемый и по-настоящему \"пайтонич…",
+      "url": "https://habr.com/ru/articles/958598/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/928/5f5/68c/9285f568cb5e337a99cd3f2fac1d37cd.png",
+      "publishedAt": "2025-10-21T08:52:51Z",
+      "content": ": \r\n , , . Django, Requests SQLAlchemy - , :\r\ndef some_important_method(self, *args, **kwargs):\r\n # ... - , \r\n: « *args? kwargs ? , ? - , ?»\r\n? , . . Python, , .\r\n*args**kwargs , - . , , - \"\" .\r\n 1: … [+10300 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "dev_flex (SM Lab)",
+      "title": "Как сделать резюме в 2025 году, чтобы HR не смог пройти мимо",
+      "description": "Привет! Меня зовут Наташа, я главный менеджер по подбору персонала в СМ ЛАБ, карьерный консультант в Яндекс Практикуме и админ телеграм-канала «Наташ, помоги». Сегодня хочу рассказать, как сделать своё резюме по-настоящему выигрышным. Статья будет интересна т…",
+      "url": "https://habr.com/ru/companies/sportmaster_lab/articles/965166/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/641/1ee/c65/6411eec65f50f907137fc2993f252761.jpg",
+      "publishedAt": "2025-11-11T10:00:27Z",
+      "content": "! , , - «, ». , - . , , . \r\n IT - , - , . \r\n , , , - , HR . , - !\r\n: HR- , ! , .  2025 , , , , .\r\n, , . . 3- , hr. , . \r\n . , , : , -, , .  hh, hr- . , , PDF. \r\n : , , , . . . , , . , .\r\n , hr , , . … [+938 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Ezntek.com"
+      },
+      "author": "ezntek",
+      "title": "Creating an Igcse Pseudocode Interpreter",
+      "description": "I'm done. Almost a year later!",
+      "url": "https://ezntek.com/posts/creating-an-igcse-pseudocode-interpreter-pt-2-20250913t1349/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-19T12:18:47Z",
+      "content": "Prelude#\r\nCheck out the first part of this series, of course. This article won’t feature too much on the interpreter design, but how to effectively use it to your own benefit.\r\nTL;DR, I tried to writ… [+11050 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "enamored_poc",
+      "title": "Создаем свой create-react-app на Python: интерактивный генератор проектов с Typer и Questionary",
+      "description": "В мире фронтенда уже давно стали стандартом такие инструменты, как create-react-app или vue create. Они задают несколько вопросов и за секунды разворачивают полностью настроенное рабочее окружение. Почему бы нам не создать такой же удобный помощник для своих …",
+      "url": "https://habr.com/ru/articles/962958/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/cfd/dff/f29/cfddfff29106b410b0d0fca4a2a10b2a.png",
+      "publishedAt": "2025-11-04T08:10:52Z",
+      "content": "1. : \r\n, Python. , , :\r\n$ mkdir my_cool_project\r\n$ cd my_cool_project\r\n$ mkdir my_cool_project\r\n$ touch my_cool_project/__init__.py\r\n$ touch main.py\r\n$ touch .gitignore\r\n$ git init\r\n...\r\n. . , __init… [+8333 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "David Wolski",
+      "title": "Fedora Linux 43: Adieu X11, Hallo WebUI",
+      "description": "Fedora 43 macht den neuen Installer zum Standard und fegt X11 aus dem Desktop: Die Hauptversionen mit Gnome 49 und KDE Plasma 6.5 arbeiten nur noch mit Wayland.",
+      "url": "https://www.heise.de/news/Fedora-Linux-43-Adieu-X11-Hallo-WebUI-10912606.html",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/6/4/4/9/6/2025-10-27-aufmacher_fedora43-43b9804fbd5a9a7d.jpg",
+      "publishedAt": "2025-10-28T15:34:00Z",
+      "content": "Inhaltsverzeichnis\r\nZwar ist Fedora um weitreichende Umbauten an der Linux-Distribution nie verlegen, doch haben die beiden signifikanten Änderungen zur jetzt veröffentlichten Version 43 weiteren Vor… [+5854 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "iam_hannes",
+      "title": "Я спарсил 150к вакансий и понял, почему TIOBE — это мусор",
+      "description": "Насколько популярные рейтинги соответствуют реальному спросу на рынке труда? Собрал данные о 150 000+ вакансий с hh.ru и других площадок. Результаты оказались неожиданными... Читать далее",
+      "url": "https://habr.com/ru/articles/957770/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/957770/1733235678542665366c54cecc797aa2/",
+      "publishedAt": "2025-10-18T05:14:06Z",
+      "content": "! , . \" 2024/2025\", TIOBE, . . .\r\n - . TIOBE Perl -15, Assembly, Fortran... : Fortran? , .\r\n : , , ? : , .\r\n . hh.ru, career.habr.com . : , .\r\n 150 :\r\n<ol><li>SQL (47.86)** - , \r\n</li><li>Python (38.… [+604 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "aliev",
+      "title": "Baker – Language-agnostic project scaffolder with hooks (Rust)",
+      "description": "Baker is a command-line tool that helps you quickly scaffold new projects. It supports language-independent hooks for automating routine tasks. Baker is written in Rust and distributed as a standal...",
+      "url": "https://github.com/aliev/baker",
+      "urlToImage": "https://opengraph.githubassets.com/4cd7d57ce57c671de3b84dc64ee1e98b2fdfba6231af248eb6dd4c649cdcf36d/aliev/baker",
+      "publishedAt": "2025-10-25T22:50:04Z",
+      "content": "Baker is a command-line tool that helps you quickly scaffold new projects. It supports language-independent hooks for automating routine tasks. Baker is written in Rust and distributed as a standalon… [+28856 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Cracked.com"
+      },
+      "author": "JM McNab",
+      "title": "Eric Idle Blasts John Cleese for Cutting This Classic Sketch From Monty Python’s Reunion",
+      "description": "By\n JM McNab\n Published: October 17th, 2025",
+      "url": "https://www.cracked.com/article_48777_eric-idle-blasts-john-cleese-for-cutting-this-classic-sketch-from-monty-pythons-reunion.html",
+      "urlToImage": "https://s3.crackedcdn.com/phpimages/article/4/9/8/1384498.jpg",
+      "publishedAt": "2025-10-17T12:00:00Z",
+      "content": "As we may have mentioned once or twice in the past, Eric Idle and John Cleese have been at each others digital throats for years, battling over the current state of Monty Pythons finances while comed… [+2321 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "MaximML (МТС)",
+      "title": "Как создать AI-аналитика во время учебы: кейс выпускного проекта студентов Школы аналитиков данных МТС",
+      "description": "Привет, Habr! На связи Максим Шаланкин из команды Школы аналитиков данных МТС. Каждый год наши студенты в качестве итогового проекта решают реальные бизнес-задачи, и этот не стал исключением. Четверо выпускников — Анна Шестакова, Григорий Суханов, Михаил Футь…",
+      "url": "https://habr.com/ru/companies/ru_mts/articles/958158/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/c71/b40/66e/c71b4066eb92344c37a0fb7d437a2a76.png",
+      "publishedAt": "2025-10-23T07:02:21Z",
+      "content": ", Habr! . -, . , , , InsightFinder, (EDA). EDA - , . \r\n - : Data Scientist Data Analyst, , .\r\n , , . , LLM , .\r\n : \r\n EDA data-driven-. : , , . : ?\r\nInsightFinder AI-, . CSV- , .\r\n , CSV - , EDA. , .… [+1806 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "yarikivanov4",
+      "title": "Менталитет старой школы: инженерные привычки программиста 70–90-х и как их применять сегодня",
+      "description": "Эта история - небольшая попытка восстановить рабочие рефлексы инженеров, которые решали реальные задачи с минимальными инструментами, и показать, как эти приемы работают в современных проектах. Статья для тех, кто хочет прокачать интуицию в отладке и научитьс…",
+      "url": "https://habr.com/ru/articles/964484/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/964484/bf5d6a9470922df284a31f93ed6e0936/",
+      "publishedAt": "2025-11-09T05:00:09Z",
+      "content": "- , , , . , , CI.\r\n, , . , , , , , , . , : , , . , : , .\r\n . , , - . . ? , , . , , . : , , . : . malloc, , , , .\r\n , . , , . , . , .\r\n .\r\n edit compile run debug. make-, , , . , : , , reproducible bu… [+1579 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "kmoseenk (OTUS)",
+      "title": "[Перевод] Почему важны семантические слои — и как собрать такой слой на DuckDB",
+      "description": "Многие задаются вопросом: «Зачем мне семантический слой? Что это вообще такое?» В этом практическом руководстве мы соберём самый простой семантический слой — всего лишь из файла YAML и Python-скрипта. Цель не в том, чтобы построить слой ради самого слоя, а в …",
+      "url": "https://habr.com/ru/companies/otus/articles/966196/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/d38/4de/3fc/d384de3fc5a11b4e2197cc0aaa12408f.jpg",
+      "publishedAt": "2025-11-13T14:15:57Z",
+      "content": "TL;DR\r\n « », , - , BI, -, LLM-. \r\n , , , : YAML , Python + Ibis DuckDB . 20 , joins c , , . \r\n , , .\r\n: « ? ?» YAML Python-. , , , . 20 - , -, DuckDB Ibis. , , .\r\n , : BI- , , BI-. -, Jupyter- BI-. K… [+9498 chars]"
+    },
+    {
+      "source": {
+        "id": "hacker-news",
+        "name": "Hacker News"
+      },
+      "author": null,
+      "title": "Liva AI (YC S25) Is Hiring",
+      "description": "As part of Liva's engineering team, you'll have end-to-end ownership over projects that define how frontier AI data is collected, validated, and quality-assured. You'll work on a mix of platform engineering and infrastructure development (scaling data platfor…",
+      "url": "https://www.ycombinator.com/companies/liva-ai/jobs/inrUYH9-founding-engineer",
+      "urlToImage": "https://bookface-images.s3.amazonaws.com/logos/37f702dd855e82c1592e6a2f877ffb12d23539c2.png?1754614441",
+      "publishedAt": "2025-10-18T17:02:22Z",
+      "content": "As part of Liva's engineering team, you'll have end-to-end ownership over projects that define how frontier AI data is collected, validated, and quality-assured. You'll work on a mix of platform engi… [+1664 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "beatwad",
+      "title": "Как я автоматизировал поиск работы на LinkedIn при помощи LLM",
+      "description": "Эта статья по сути является продолжением моей прошлогодней статьи, в которой я автоматизировал отклики на hh.ru. Кстати, если кому это интересно, тот проект до сих пор живой, недавно проверял :)В этой статье я расскажу о том, как я сделал тоже самое, но для L…",
+      "url": "https://habr.com/ru/articles/958964/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/a90/5ef/3bb/a905ef3bbde58396f9bd4197a944324c.png",
+      "publishedAt": "2025-10-22T07:33:27Z",
+      "content": ", hh.ru. , , , :)\r\n , , LinkedIn, , 0 ( , ).\r\n, , ( IT). LinkedIn, - AiHawk, hh.ru. - . , .\r\n, ?\r\n<ul><li> LinkedIn , , , , \"\" \r\n</li><li> , ; , \r\n</li><li> , , , \r\n</li><li> , , , \r\n , :\r\n</li><li> … [+1138 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "etydovprek",
+      "title": "Генеративный ИИ как штатный инженер техподдержки: настройка, внедрение, реальные ошибки",
+      "description": "Эксперимент, начавшийся как попытка автоматизировать ответы на тикеты, закончился созданием почти самостоятельного \"сотрудника\" службы поддержки. В статье рассказываю, как мы внедряли генеративную модель в техподдержку, как настраивали контекст, ловили баги. …",
+      "url": "https://habr.com/ru/articles/959252/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/959252/a753764c40956920e1efc13ef0eb0a99/",
+      "publishedAt": "2025-10-23T01:06:22Z",
+      "content": ", , \"\" . , , , . , , rethink- .\r\n, . , , , , , SQL-, -. , : ., 32k , internal API. , . , « » : « ?» ., . . , : SQL- , . .\r\n«» , , , , ., . Python:\r\ndef build_context(ticket_id):\r\n ticket = get_ticket… [+978 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "SergeiTerentev",
+      "title": "Как конвертировать mind map в чек лист",
+      "description": "В этой статье мы разберем как можно быстро и удобно конвертировать mind map в чек листы с дальнейшим импортом в Testops и Testrail. Цель - сэкономить время на рутинных операциях с тестовой документацией. Читать далее",
+      "url": "https://habr.com/ru/articles/957338/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/87a/018/51a/87a01851af6995962802cb7720a3ce22.png",
+      "publishedAt": "2025-10-16T16:43:02Z",
+      "content": ", ? \r\n , - , Senior QA Umbrella IT. . , ,   , - , . \r\n, , mind map. , , , - , . , mind map , . mind map Test Management System ( TMS) , . mind map \r\nmind map \r\n mind map , . , , Miro + Mind map downl… [+8915 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Pytorch.org"
+      },
+      "author": "The PyTorch Team at Meta",
+      "title": "PyTorch Monarch",
+      "description": "Comments",
+      "url": "https://pytorch.org/blog/introducing-pytorch-monarch/",
+      "urlToImage": null,
+      "publishedAt": "2025-10-23T10:15:12Z",
+      "content": "We now live in a world where ML workflows (pre-training, post training, etc) are heterogeneous, must contend with hardware failures, are increasingly asynchronous and highly dynamic. Traditionally, P… [+21313 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Yahoo Entertainment"
+      },
+      "author": "Cody Januszko",
+      "title": "Authorities make shocking discovery after stopping smugglers' boats: 'A big player'",
+      "description": "\"We hope that they will continue with the process of properly prosecuting them.\"",
+      "url": "https://www.yahoo.com/news/articles/authorities-shocking-discovery-stopping-smugglers-210000749.html",
+      "urlToImage": "https://s.yimg.com/ny/api/res/1.2/Yl_A4YdXbqCt9vnPuP618A--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/the_cool_down_737/b5e3cf6c8aeeb83cfa91a447a701a936",
+      "publishedAt": "2025-11-06T21:00:00Z",
+      "content": "Communities around the world are struggling with illegal animal and animal product trafficking.\r\nIn southern Vietnam's Vinh Long province, officials captured more than seven metric tons (over 15,000 … [+2866 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "TeDo_blog",
+      "title": "Как мы создали решение для автоматизации обработки документов с помощью искусственного интеллекта",
+      "description": "В современном бизнесе обработка больших объемов текстовой информации остается серьезным вызовом.В практике искусственного интеллекта и анализа данных компании «Технологии Доверия» мы регулярно сталкиваемся с запросами клиентов на оптимизацию процессов работы …",
+      "url": "https://habr.com/ru/articles/959168/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/6e8/76f/d75/6e876fd75ef42a6df51740fc94ae9936.jpg",
+      "publishedAt": "2025-10-22T15:44:20Z",
+      "content": ".   « »  . , .\r\n, \r\n : , , , . 30% . HR-,   , . , .\r\n , . , . , :\r\n      ;\r\n      ;\r\n      ;\r\n      .\r\n« » . , - .\r\n , , . :\r\n      Python PostgreSQL ;\r\n      Weaviate ;\r\n      LLM- .\r\n :\r\n: « »\r\n« »… [+400 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "Andrey_Biryukov (OTUS)",
+      "title": "[Перевод] Используем агентов LLM для миграции кода",
+      "description": "Агенты LLM меняют подходы разработчиков к миграции кода, превращая утомительные, подверженные ошибкам рефакторинги в интеллектуальные, полуавтоматизированные рабочие процессы. В этой статье мы показываем, как с помощью агентов перенести кодовую базу Java на T…",
+      "url": "https://habr.com/ru/companies/otus/articles/961080/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/982/ce8/3d3/982ce83d3e7af0039e7e393ca9b2b83f.jpg",
+      "publishedAt": "2025-11-13T09:11:47Z",
+      "content": "LLM   , ,  , .   ,    Java  TypeScript, ,     CI.\r\n LLM   ,   .   , ,   .   ,   ,   .\r\n    LLM, , . , ,   . .     ,   .\r\n      , . ,   .\r\n    .   , .\r\n    , ,  Java  TypeScript,     , ,  Python 2  Py… [+3302 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Pythonmorsels.com"
+      },
+      "author": "Trey Hunner",
+      "title": "Python Morsels: Unnecessary parentheses in Python",
+      "description": "Python's ability to use parentheses for grouping can often confuse new Python users into over-using parentheses in ways that they shouldn't be used.",
+      "url": "https://www.pythonmorsels.com/unnecessary-parentheses/",
+      "urlToImage": "https://www.pythonmorsels.com/static/images/favicons/twitter-card.b6ebc4bc1f47.jpg",
+      "publishedAt": "2025-11-12T03:30:00Z",
+      "content": "Python's if statements don't use parentheses, and yet this is valid Python code:\r\nif(language==\"Python\"):print(\"[Insert Monty Python joke] (that's the joke)\")\r\nPython doesn't have type casting, but t… [+6779 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Jeffgeerling.com"
+      },
+      "author": null,
+      "title": "The Arduino Uno Q is a weird hybrid SBC",
+      "description": "Comments",
+      "url": "https://www.jeffgeerling.com/blog/2025/arduino-uno-q-weird-hybrid-sbc",
+      "urlToImage": null,
+      "publishedAt": "2025-10-31T15:49:21Z",
+      "content": "The Arduino Uno Q is... a weird board. It's the first product born out of Qualcomm's buyout of Arduino.\r\nIt's like if you married an Intel CPU, and a Raspberry Pi RP2040 microcontrolleroh wait, Radxa… [+8417 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Quesma.com"
+      },
+      "author": "Jacek Migdal",
+      "title": "The security paradox of local LLMs",
+      "description": "Local LLMs prioritize privacy over security. Our research reveals a 95% backdoor injection success rate.",
+      "url": "https://quesma.com/blog/local-llms-security-paradox/",
+      "urlToImage": "https://quesma.com/_astro/thumbnail.e4c1vFDh.png",
+      "publishedAt": "2025-10-22T12:48:01Z",
+      "content": "If youre running a local LLM for privacy and security, you need to read this. Our research on gpt-oss-20b (for OpenAIs RedTeaming Challenge) shows they are much more prone to being tricked than front… [+9431 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Gottfried Hofmann",
+      "title": "heise+ | Visualisierung ohne Coden: CSV-Daten in Blender importieren",
+      "description": "Blender 4.5 kann CSV-Dateien direkt über Geometry Nodes importieren, Skripte benötigt man nicht mehr: Das ist ideal für 3D-Datenvisualisierungen. So gehts.",
+      "url": "https://www.heise.de/ratgeber/Visualisierung-ohne-Coden-CSV-Daten-in-Blender-importieren-10692885.html?wt_mc=rss.red.ho.ho.atom.beitrag_plus.beitrag_plus",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/4/8/5/7/4/https___xp.heise.de_fileserver_images_2529_712404122650781_00_aufmacher_web-84e8884a21370161.jpg",
+      "publishedAt": "2025-11-10T14:00:00Z",
+      "content": "Inhaltsverzeichnis\r\nAls 3D-Grafiksuite eignet sich Blender nicht nur für Animationsfilme und visuelle Effekte, sondern auch zur Visualisierung von Zahlenreihen. Um die Daten in Blender zu holen, muss… [+1954 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "heise online"
+      },
+      "author": "Ulrich Schmitz",
+      "title": "Bundesweiter Programmierwettbewerb gestartet",
+      "description": "Im Berliner Gymnasium Steglitz läuft der bundesweite Coding-Wettbewerb Hidden Gems, bei dem Schüler Bots programmieren und durch Labyrinthe navigieren.",
+      "url": "https://www.heise.de/news/Bundesweiter-Programmierwettbewerb-gestartet-10908083.html",
+      "urlToImage": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/9/6/4/3/3/9/HiddenGems-75412714ff894ecd.jpg",
+      "publishedAt": "2025-10-27T14:03:00Z",
+      "content": "Der bundesweite Programmierwettbewerb \"Hidden Gems\" richtet sich an Schülerinnen und Schüler, die ihre Fähigkeiten im Bereich der algorithmischen Problemlösung und Programmierung verbessern möchten. … [+1861 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Espinof.com"
+      },
+      "author": "Pedro Gallego",
+      "title": "Es una de las mejores comedias de la historia y sigue siendo desternillante. Hoy en TV, una divertida parodia cristiana sin pelos en la lengua",
+      "description": "En un momento donde el fervor católico se está colando de manera nada sibilina en la cultura contemporánea (véase si no determinado disco que ha salido estos días), convierte en más papel mojado las quejas sobre una supuesta persecución religiosa. Si acaso, e…",
+      "url": "https://www.espinof.com/la-2/mejores-comedias-historia-sigue-siendo-desternillante-hoy-tv-divertida-parodia-cristiana-pelos-lengua",
+      "urlToImage": "https://i.blogs.es/a95bb7/la-vida-de-brian-1979-monty-python/840_560.jpeg",
+      "publishedAt": "2025-11-10T09:00:12Z",
+      "content": "En un momento donde el fervor católico se está colando de manera nada sibilina en la cultura contemporánea (véase si no determinado disco que ha salido estos días), convierte en más papel mojado las … [+1948 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Cracked.com"
+      },
+      "author": "JM McNab",
+      "title": "Alleged Fraudsters In Alaska Adopted A Beloved 'Monty Python' Catchphrase As Their Company Name",
+      "description": "By\n JM McNab\n Published: November 01st, 2025",
+      "url": "https://www.cracked.com/article_48969_alleged-fraudsters-in-alaska-adopted-a-beloved-monty-python-catchphrase-as-their-company-name.html",
+      "urlToImage": "https://s3.crackedcdn.com/phpimages/article/8/7/1/1395871.jpg",
+      "publishedAt": "2025-11-01T14:00:00Z",
+      "content": "In one of the most memorable scenes from the beloved comedy Monty Python and the Holy Grail, King Arthur (Graham Chapman) and Sir Bedivere (Terry Jones) encounter the mysterious Knights Who Say Ni! s… [+2184 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "IvanZaycev0717",
+      "title": "Адский эксперимент: личный сайт на нищих микросервисах",
+      "description": "Микросервисы тут, микросервисы там… Из каждого утюга доносится дивный сказ про прекрасный мир микросервисов. А ведь это всего лишь один вид из десятка архитектурных стилей, который имеет свои достоинства и недостатки.В этом эксперименте мы внедрим микросервис…",
+      "url": "https://habr.com/ru/articles/964450/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/497/cf4/6d5/497cf46d5af6fd87254362b0b343ba59.png",
+      "publishedAt": "2025-11-09T05:56:48Z",
+      "content": ", . , .\r\n , DDD. « » (Anemic Domain Model) , .\r\n , , , .\r\n1. \r\n1.1 \r\n . , (, Tilda). . . , . , Tilda CSS. , (i18n).\r\n HTML, CSS, JavaScript . , . : , . . ? ?\r\n () (). . . . - Django Flask. Django MVC… [+8811 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "youscriptor",
+      "title": "Как я решил бросить программирование, стать вайбкодером и что из этого вышло",
+      "description": "Я был программистом больше 20 лет. Начинал с плюсов и геймдева, но работал и с HFT, и с мобильными играми на Java, писал под Unity и C#, трудился на банки и автоматизировал бизнес.В конце 2023 года я конкретно выгорел и, имея на счету средства, чтобы не работ…",
+      "url": "https://habr.com/ru/articles/962966/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/962966/e75d3d316f815b0c21842b7bd0264e0b/",
+      "publishedAt": "2025-11-04T08:28:27Z",
+      "content": "20 . , HFT, Java, Unity C#, .\r\n 2023 , , , . , , . 50-.\r\n , , GPT-3.5, -. , , . ... , . Angular-. ! . , (, ).\r\n, , , « », . , . , , , , , « ».\r\n , , ru-ticker.com. , , -, , . Angular, « ». - , , , .\r… [+429 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "Upgini",
+      "title": "[Перевод] Инструкция по бесплатной GPT генерации новых фичей для наращивания точности ML модели",
+      "description": "Одним из самых важных навыков любого специалиста по данным или ML инженера является умение извлекать информативные признаки из исходного набора данных. Этот процесс называемый feature engineering (инженерия признаков), — одна из самых полезных техник при пост…",
+      "url": "https://habr.com/ru/articles/956310/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/57d/89f/e14/57d89fe1404115ab2999c65ea56b6775.jpg",
+      "publishedAt": "2025-10-20T17:25:34Z",
+      "content": "ML . feature engineering ( ), .\r\n . scikit-learn , - , .\r\n , , .\r\n, feature engineering , , .\r\nUpgini. Large Language Models (LLM), Upgini GPT OpenAI, feature engineering .\r\n python Upgini GitHub .\r\n… [+2363 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "alan_dani",
+      "title": "[Перевод] Безопасность памяти для скептиков",
+      "description": "Если вам надоело слушать проповеди про «безопасность памяти» - эта большое эссе именно для вас, усталых скептиков. Эндрю Лилли Бринкер - ведущий инженер компании MITRE в области безопасности программного обеспечения - спокойно разбирает факты и доказывает: бе…",
+      "url": "https://habr.com/ru/articles/965432/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/074/cdf/61e/074cdf61e7f8e14d1d80a27224ed960b.png",
+      "publishedAt": "2025-11-11T15:45:06Z",
+      "content": "« » \r\n - , , . Rust.\r\nRust , . : Rust - , .\r\n Rust - , , , Cyclone ( C). Rust « » - , , , , . : , , .\r\n, \r\n Rust - . : 70% , .\r\nRust - . « » - ( , , ). Rust - .\r\n- . : , , , , , open source - , . - .… [+2378 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Pythonbytes.fm"
+      },
+      "author": "Michael Kennedy (@mkennedy)",
+      "title": "Python Bytes: #455 Gilded Python and Beyond",
+      "description": "News and announcements from the Python community for the week of Oct 27th, 2025",
+      "url": "https://pythonbytes.fm/episodes/show/455/gilded-python-and-beyond",
+      "urlToImage": "https://cdn.pythonbytes.fm/episodes/youtube_image/exSYX16Hk8M?v=1",
+      "publishedAt": "2025-10-27T08:00:00Z",
+      "content": "Join us on YouTube at pythonbytes.fm/live to be part of the audience. Usually Monday at 10am PT. Older video versions available there too.Finally, if you want an artisanal, hand-crafted digest of eve… [+41679 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Pythonmorsels.com"
+      },
+      "author": "Trey Hunner",
+      "title": "Python Morsels: __dict__: where Python stores attributes",
+      "description": "Most Python objects store their attributes in a __dict__ dictionary. Modules and classes always use __dict__, but not everything does.",
+      "url": "https://www.pythonmorsels.com/__dict__/",
+      "urlToImage": "https://pythonmorsels.s3.amazonaws.com/screencast_images/2059686758-d02eb7dedaa934e8291db38e9b91cf903525385dd02311ae555e3a55546af5e8-d_.png",
+      "publishedAt": "2025-10-28T22:15:00Z",
+      "content": "Sign in to your Python Morsels account to save your screencast settings.\r\nDon't have an account yet? Sign up here.\r\nWhere do Python objects store their attributes?\r\nA class with some attributes\r\nWe h… [+10998 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "/FILM"
+      },
+      "author": "staff@slashfilm.com (Jeremy Smith)",
+      "title": "An Underseen '70s Fantasy Movie On Prime Video Is Perfect For Monty Python Fans",
+      "description": "Monty Python fans would do well to check out this '70s fantasy flick on Prime Video, which remains one of Terry Gilliam's less-discussed directorial efforts.",
+      "url": "https://www.slashfilm.com/2026071/jabberwocky-70s-fantasy-movie-perfect-monty-python-fans-prime-video/",
+      "urlToImage": "https://www.slashfilm.com/img/gallery/an-underseen-70s-fantasy-movie-on-prime-video-is-perfect-for-monty-python-fans/l-intro-1763068046.jpg",
+      "publishedAt": "2025-11-14T22:00:00Z",
+      "content": "One significant reason \"Jabberwocky\" looks like a sequel of sorts to \"Monty Python and the Holy Grail\" is that it was shot by the latter film's cinematographer, Terry Bedford. When I was young, I wou… [+1268 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "Lana_Kharlamova (CedrusData)",
+      "title": "Substrait — lingua franca для баз данных",
+      "description": "Substrait — это промежуточный формат (IR) для обмена планами запросов между системами. Он снимает боль диалектов SQL, позволяет делать pushdown в разные бэкенды и избавляет от повторного парсинга/оптимизации федеративных системах и позволяет относительно безб…",
+      "url": "https://habr.com/ru/companies/cedrusdata/articles/964800/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/9b8/46d/e48/9b846de48f7a80eb056fe0373df8398c.png",
+      "publishedAt": "2025-11-10T12:22:45Z",
+      "content": "Substrait (IR) . SQL, pushdown / . - , .\r\n: , Parquet/S3, Postgres. - (, ). (CedrusData/Trino/Dremio/Presto), SQL , (push down) : Parquet, Postgres. Postgres JDBC- . SQL , , , ( , ) .\r\n :\r\n<ul><li> S… [+4377 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Pythonmorsels.com"
+      },
+      "author": "Trey Hunner",
+      "title": "Python Morsels: Python 3.14's new t-string syntax",
+      "description": "Python’s new t-strings may look like f-strings, but they work in a totally different way, allowing you to delay string interpolation.",
+      "url": "https://www.pythonmorsels.com/t-strings-in-python/",
+      "urlToImage": "https://pythonmorsels.s3.amazonaws.com/screencast_images/2069474834-2f614271f3f8eb9b60156a19c1da2e28c461b591ab4eb147c9be49d8a592ddae-d_.png",
+      "publishedAt": "2025-10-20T20:30:00Z",
+      "content": "Sign in to your Python Morsels account to save your screencast settings.\r\nDon't have an account yet? Sign up here.\r\nLet's talk about Python's t-strings.\r\nString formatting: a very brief history\r\nPyth… [+8334 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Talkpython.fm"
+      },
+      "author": "Michael Kennedy (@mkennedy)",
+      "title": "Talk Python to Me: #527: MCP Servers for Python Devs",
+      "description": "Today we’re digging into the Model Context Protocol, or MCP. Think LSP for AI: build a small Python service once and your tools and data show up across editors and agents like VS Code, Claude Code, and more. My guest, Den Delimarsky from Microsoft, helps buil…",
+      "url": "https://talkpython.fm/episodes/show/527/mcp-servers-for-python-devs",
+      "urlToImage": "https://cdn-podcast.talkpython.fm/episodes/youtube_image/0V3Tah-BDy4/mcp-servers-for-python-devs.jpg?v=1",
+      "publishedAt": "2025-11-10T08:00:00Z",
+      "content": "Collapse transcript\r\n00:00On this episode, we're digging into the Model Context Protocol, or MCP.\r\n00:04Think LSP for AI. Build a small Python service once, and your tools and data show up across\r\n00… [+78331 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "MrRjxrby (BotHub)",
+      "title": "Интеграция API BotHub в Cursor: пошаговая инструкция",
+      "description": "Доброго времени суток, «Хабр»!Не так уж давно в нашем хабе была опубликована статья, посвященная платформе Cursor 1.7, успевшей обновиться до актуальной сегодня версии 2.0. Тогда мы рассмотрели функционал системы, но не подключение к ней кастомных API. Пришло…",
+      "url": "https://habr.com/ru/companies/bothub/articles/965146/#post-content-body",
+      "urlToImage": "https://habrastorage.org/getpro/habr/upload_files/570/3dc/ba7/5703dcba77443b3cdc3389662222cf61.png",
+      "publishedAt": "2025-11-11T09:53:32Z",
+      "content": ", «»!\r\n , Cursor 1.7, 2.0. , API. , API BotHub.\r\n , - . \r\nCursor?\r\nCursor - , , . , .\r\n Cursor: , , , GitHub. , , . , Cursor , .\r\n , .\r\nAPI?\r\nAPI - , . , , .\r\n , , . , API.\r\n , . , API, , .\r\nAPI BotH… [+547 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Habr.com"
+      },
+      "author": "abp2b",
+      "title": "Эволюция SSH-клиентов от PuTTY до МС22. Как инструменты администрирования стали отражением эпохи",
+      "description": "SSH-клиенты — та категория программ, о которой редко вспоминают, пока всё работает. Они не мелькают в новостях, не получают \"вау-эффект\", но именно через них проходит каждая команда, каждая правка на сервере, каждый апдейт. Именно поэтому путь от старого добр…",
+      "url": "https://habr.com/ru/articles/958918/#post-content-body",
+      "urlToImage": "https://habr.com/share/publication/958918/f2192d31465cabdd8679387eb866f2e6/",
+      "publishedAt": "2025-10-22T05:39:26Z",
+      "content": "SSH- , , . , \"-\", , , . PuTTY 22, Termius SecureCRT , .\r\nPuTTY \r\nPuTTY 90- .\r\n , , . : \"\", .\r\n . , , , . PuTTY , .\r\n , SSH- .\r\nMobaXTerm \r\n PuTTY , MobaXTerm \" \".\r\n SSH- : SSH, SFTP, RDP, VNC, Telnet… [+544 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Esa.int"
+      },
+      "author": null,
+      "title": "JupyterGIS breaks through to the next level",
+      "description": "Launched in June 2024, JupyterGIS was introduced as a collaborative, web-based GIS environment built on the JupyterLab framework. Its objective is to",
+      "url": "https://eo4society.esa.int/2025/10/16/jupytergis-breaks-through-to-the-next-level/",
+      "urlToImage": "https://eo4society.esa.int/wp-content/uploads/2025/10/jupytergis-1069x568.png",
+      "publishedAt": "2025-10-24T04:13:01Z",
+      "content": "Launched in June 2024, JupyterGIS was introduced as a collaborative, web-based GIS environment built on the JupyterLab framework. Its objective is to bring QGIS-inspired workflows into the browser, e… [+6075 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Github.com"
+      },
+      "author": "openpcc",
+      "title": "Open Source Implementation of Apple's Private Compute Cloud",
+      "description": "An open-source framework for provably private AI inference - openpcc/openpcc",
+      "url": "https://github.com/openpcc/openpcc",
+      "urlToImage": "https://opengraph.githubassets.com/c6cee2dec767481fe2b0d31df3d001656145c7c0fb79f4c83d9e56071cbd651e/openpcc/openpcc",
+      "publishedAt": "2025-11-05T15:52:27Z",
+      "content": "OpenPCC is an open-source framework for provably private AI inference, inspired by Apples Private Cloud Compute but fully open, auditable, and deployable on your own infrastructure. It allows anyone … [+2556 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Appinn.com"
+      },
+      "author": "青小蛙",
+      "title": "Karakeep – 最适合 2026 年使用的私人网络书签，可自托管【第一期：纯功能介绍】",
+      "description": "Karakeep 是一款开源的网络书签工具，在 GitHub 获得了超过 20000 颗。可以帮你保存链接、笔记、图片、视频、PDF 等等，曾用名 Hoarder（译为囤积者）。它拥有一个 iOS 应用程序和一个 Android 应用程序，可以收藏、浏览书签，拥有 Chrome、Firefox 浏",
+      "url": "https://www.appinn.com/karakeep-introduction-1/",
+      "urlToImage": "https://www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-2025-11-11T110540.904.jpg",
+      "publishedAt": "2025-11-11T03:36:38Z",
+      "content": "Karakeep GitHub 20000 PDF Hoarder iOS Android ChromeFirefox @Appinn\r\nKarakeep AI \r\n Chrome monolith \r\nOCR \r\n RSS \r\n yt-dlp \r\nFloccus\r\n 2025 2026 \r\n AIAI \r\nRaycast / Raycast Obsidian Telegram Python-A… [+294 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Golem.de"
+      },
+      "author": "Antony Ghiroz",
+      "title": "(g+) Zeitreihenanalyse mit Deep Learning: Mit Darts Vorhersagen treffen und Anomalien erkennen",
+      "description": "Wir erklären, wie man Darts nutzt, um mit neuronalen Netzen Prognosen zu erstellen und Anomalien zu erkennen. Eine Anleitung von Antony Ghiroz (Muster-Bibliotheken, Python)",
+      "url": "https://www.golem.de/sonstiges/zustimmung/auswahl.html?from=https%3A%2F%2Fwww.golem.de%2Fnews%2Fzeitreihenanalyse-mit-deep-learning-mit-darts-vorhersagen-treffen-und-anomalien-erkennen-2510-201376.html&referer=https%3A%2F%2Ft.co%2F79dc4943de",
+      "urlToImage": null,
+      "publishedAt": "2025-10-21T11:30:02Z",
+      "content": "Besuchen Sie Golem.de wie gewohnt mit Werbung und Tracking,\r\n indem Sie der Nutzung aller Cookies zustimmen.\r\n Details zum Tracking finden Sie im Privacy Center.\r\nSkript wurde nicht geladen. Informat… [+607 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Cracked.com"
+      },
+      "author": "JM McNab",
+      "title": "No One in the U.K. Wants to See John Cleese’s Gross Foot",
+      "description": "The ex-Python really wants people to know about his podiatric problems",
+      "url": "https://www.cracked.com/article_49029_no-one-in-the-uk-wants-to-see-john-cleeses-gross-foot.html",
+      "urlToImage": "https://s3.crackedcdn.com/phpimages/article/2/3/1/1400231.jpg",
+      "publishedAt": "2025-11-06T01:00:00Z",
+      "content": "Monty Pythons Flying Circusmay have featured a giant foot at the end of its opening credits, but that doesnt mean that people want to see any aging Python members bare feet on their TV sets first thi… [+2319 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "CNET"
+      },
+      "author": "Blake Stimac",
+      "title": "How I Conjured a Halloween Events Web App Just by Chatting With AI",
+      "description": "Vibe coding makes creating something from basically nothing incredibly easy, even if it doesn't always get it right.",
+      "url": "https://www.cnet.com/tech/services-and-software/how-i-conjured-a-halloween-events-web-app-just-by-chatting-with-ai/",
+      "urlToImage": "https://www.cnet.com/a/img/resize/889d1f93dcb2822695099f9d07c82c3967b30bbf/hub/2025/10/27/1b4a1cb3-b26b-4691-a470-ce340f4779d1/gettyimages-2080972792.jpg?auto=webp&fit=crop&height=675&width=1200",
+      "publishedAt": "2025-10-29T18:39:26Z",
+      "content": "I'm no coder, but I know enough to make a mess. I've taken courses for some basic coding skills and managed to pick up some rudimentary Python and Linux knowledge from installing custom ROMs on my An… [+6546 chars]"
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Renerocks.ai"
+      },
+      "author": null,
+      "title": "Building a high-performance ticketing system with TigerBeetle",
+      "description": "@renerocksai - personal website",
+      "url": "https://renerocks.ai/blog/2025-11-02--tigerfans/",
+      "urlToImage": "https://renerocks.ai/reneglasses.png",
+      "publishedAt": "2025-11-08T00:01:05Z",
+      "content": "A journey from simple curiosity to 977 tickets per second\r\nTigerFans demo showing ticket checkout and payment flow\r\nWhat Started Everything\r\nToo easy: TigerBeetle.\r\nThat was Joran Dirk Greefs respons… [+19350 chars]"
+    }
+  ]
+}

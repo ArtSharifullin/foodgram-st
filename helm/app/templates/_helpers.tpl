@@ -42,8 +42,8 @@ Return nginx service name or empty (for conditional fallback in subcharts)
 Return DB secrets name from top-level values with a safe default
 */}}
 {{- define "app.dbSecretsName" -}}
-{{- if and .Values.global .Values.global.secret .Values.global.secret.db -}}
-  {{- .Values.global.secret.db -}}
+{{- if and .Values.global .Values.global.secrets .Values.global.secrets.db -}}
+  {{- .Values.global.secrets.db -}}
 {{- else -}}
   db-secrets
 {{- end -}}

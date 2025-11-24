@@ -1,23 +1,6 @@
 namespace: foodgram
 svcName: celery-worker-service
 
-global:
-  service:
-    celeryWorker: celery-worker-service
-  ingress:
-    tls: null
-  images:
-    api:
-      name: tkshabalin/foodgram-back
-      tag: latest
-      pullPolicy: IfNotPresent
-  secret:
-    db: db-secrets
-    rabbitmq: rabbitmq-secrets
-  secrets:
-    db: db-secrets
-    rabbitmq: rabbitmq-secrets
-
 statefulset:
   replicas: 1
 
@@ -49,6 +32,14 @@ deployment:
       rabbitmq:
         RABBITMQ_USER: username
         RABBITMQ_PASSWORD: password
+      vault:
+        VAULT_ADDR: VAULT_ADDR
+        VAULT_KV_MOUNT: VAULT_KV_MOUNT
+        VAULT_ROLE_ID: VAULT_ROLE_ID
+        VAULT_SECRET_ID: VAULT_SECRET_ID
+      externalApis:
+        NEWSAPI_API_KEY: NEWSAPI_API_KEY
+        NEWSDATA_API_KEY: NEWSDATA_API_KEY
     config:
       db:
         POSTGRES_HOST: host

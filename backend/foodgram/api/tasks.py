@@ -1,14 +1,15 @@
 from celery import shared_task
 import requests
 
+
 @shared_task
-def get_quote_task(count):
-    url = f"https://api.breakingbadquotes.xyz/v1/quotes/{count}"
+def get_chuck_joke_task():
+    url = "https://api.chucknorris.io/jokes/random"
     resp = requests.get(url)
     return resp.json()
 
 @shared_task
-def get_cat_fact_task(count):
-    url = f"https://meowfacts.herokuapp.com/?count={count}"
+def get_SW_info_task(count):
+    url = f"https://swapi.dev/api/people/{count}"
     resp = requests.get(url)
     return resp.json()

@@ -19,7 +19,12 @@ from api.serializers import (CustomUserSerializer, FavoriteSerializer,
                              RecipeWriteSerializer, ShoppingCardSerializer)
 
 from recipes.models import (Favorite, Follow, Ingredient, Recipe, ShoppingList)
-from api.tasks import *
+from api.tasks import (
+    dispatch_external_api_jobs,
+    fetch_external_api_task,
+    get_SW_info_task,
+    get_chuck_joke_task,
+)
 from celery.result import AsyncResult
 
 User = get_user_model()
@@ -263,6 +268,40 @@ def run_SW_info_task(request):
     count = request.data.get('count', '3')
     task = get_SW_info_task.delay(count)
     return Response({'task_id': task.id})
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def run_external_api_batch_task(request):
+    messages = request.data.get('messages')
+    if messages is not None and not isinstance(messages, list):
+        return Response(
+            {'detail': 'messages must be a list of payloads'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    task = dispatch_external_api_jobs.delay(messages)
+    return Response({'task_id': task.id})
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def run_external_api_fetch_task(request):
+    alias = request.data.get('alias')
+    if not alias:
+        return Response(
+            {'detail': 'alias is required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    params = request.data.get('params', {})
+    if params is not None and not isinstance(params, dict):
+        return Response(
+            {'detail': 'params must be a JSON object'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    payload = {'alias': alias, 'params': params or {}}
+    task = fetch_external_api_task.delay(payload)
+    return Response({'task_id': task.id})
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

@@ -27,11 +27,11 @@ deployment:
       DJANGO_SETTINGS_MODULE: foodgram.settings
     secrets:
       db:
-        POSTGRES_DB: POSTGRES_DB               # ← Имя ключа в секрете
+        POSTGRES_DB: POSTGRES_DB
         POSTGRES_USER: POSTGRES_USER
         POSTGRES_PASSWORD: POSTGRES_PASSWORD
       rabbitmq:
-        RABBITMQ_USER: username                # ← Имя ключа в секрете
+        RABBITMQ_USER: username
         RABBITMQ_PASSWORD: password
       vault:
         VAULT_ADDR: VAULT_ADDR

@@ -1,12 +1,19 @@
 namespace: foodgram
 svcName: flower-service
 
+global:
+  namespace: foodgram
+  name: flower
+  svcName: flower-service
+  environment: "development"
+
+
 ingress:
   enabled: false
   host: foodgram.local
-
-ingress:
-  host: foodgram.local
+  tls:
+      enabled: true
+      secretName: foodgram-tls
 
 service:
   type: ClusterIP

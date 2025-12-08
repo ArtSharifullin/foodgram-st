@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from services.redis_client import get_redis_client
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +34,7 @@ INSTALLED_APPS = [
     'djoser',
     'django_filters',
     'api.apps.ApiConfig',
+    'services.apps.ServicesConfig',
     'recipes.apps.RecipesConfig',
     'users.apps.UsersConfig',
     'colorfield',

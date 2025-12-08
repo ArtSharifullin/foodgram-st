@@ -8,11 +8,11 @@ metadata:
   labels:
     {{- include "flower.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.global.ingress.tls }}
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
         - {{ .Values.ingress.host }}
-      secretName: {{ .Values.global.ingress.tls.secretName }}
+      secretName: {{ .Values.ingress.tls.secretName }}
   {{- end }}
   rules:
     - host: {{ .Values.ingress.host }}
@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.global.service.flower }}
+                name: {{ .Values.global.name }}
                 port:
                   number: 5555

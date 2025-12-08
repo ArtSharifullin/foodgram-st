@@ -36,3 +36,4 @@ pika
 hvac
 celery
 flower
+redis

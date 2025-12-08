@@ -22,8 +22,6 @@ from recipes.models import (Favorite, Follow, Ingredient, Recipe, ShoppingList)
 from api.tasks import (
     dispatch_external_api_jobs,
     fetch_external_api_task,
-    get_SW_info_task,
-    get_chuck_joke_task,
 )
 from celery.result import AsyncResult
 
@@ -254,20 +252,6 @@ def download_shopping_cart(request):
         filename)
     return response
 
-
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def run_chuck_joke_task(request):
-    task = get_chuck_joke_task.delay()
-    return Response({'task_id': task.id})
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def run_SW_info_task(request):
-    count = request.data.get('count', '3')
-    task = get_SW_info_task.delay(count)
-    return Response({'task_id': task.id})
 
 
 @api_view(['POST'])

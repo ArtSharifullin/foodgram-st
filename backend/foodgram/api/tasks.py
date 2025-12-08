@@ -9,6 +9,11 @@ from django.conf import settings
 
 from foodgram.integrations.vault import VaultClientError, vault_client
 
+
+from services.redis_client import get_redis_client
+import uuid
+from datetime import datetime
+
 EXTERNAL_API_CONFIG = {
     'newsdata': {
         'url': 'https://newsdata.io/api/1/news',

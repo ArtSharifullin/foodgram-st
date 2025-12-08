@@ -1,5 +1,3 @@
-# Copy this file to values.vault.yaml and replace ref+vault:// placeholders with
-# your Vault paths or inline secrets. The file is ignored by git.
 sharedSecrets:
   vault:
     data:

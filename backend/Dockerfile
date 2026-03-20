@@ -1,19 +1,14 @@
-# Используем официальный образ Python
 FROM python:3.11-slim
 
-# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем файлы зависимостей
 COPY requirements.txt .
 
-RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
+COPY foodgram/ /app/
 
-# Копируем код приложения
-COPY foodgram/ .
+EXPOSE 8000
 
-# Запускаем приложение
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
+CMD ["gunicorn", "--chdir", "/app", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]

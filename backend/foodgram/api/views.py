@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Exists, OuterRef, Value
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.conf import settings
@@ -296,3 +296,19 @@ def get_task_status(request, task_id):
         'status': result.status,
         'result': result.result if result.ready() else None,
     })
+
+def run_chuck_joke_task(_request):
+    return JsonResponse(
+        {
+            "status": "ok",
+            "message": "run_chuck_joke_task временно отключён для локального запуска",
+        }
+    )
+
+def run_SW_info_task(_request):
+    return JsonResponse(
+        {
+            "status": "ok",
+            "message": "run_sw_info_task временно отключён для локального запуска",
+        }
+    )

@@ -50,6 +50,7 @@ deployment:
         RABBITMQ_HOST: host
         RABBITMQ_PORT: port
 
+
 volumeMounts:
   media:
     name: media-volume
@@ -59,3 +60,5 @@ volumeMounts:
     name: backend-static
     mountPath: /backend_static
     claimName: static-pvc
+
+

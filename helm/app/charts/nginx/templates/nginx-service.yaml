@@ -18,4 +18,4 @@ spec:
       targetPort: {{ .ports.port }}
   {{- end }}
   selector:
-    app: {{ .Chart.Name }}
+{{ include "nginx.selectorLabels" . | indent 4 }}

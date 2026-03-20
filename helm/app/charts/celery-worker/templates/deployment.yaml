@@ -1,3 +1,4 @@
+{{- if gt (int .Values.statefulset.replicas) 0 }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,8 +36,8 @@ spec:
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
-            {{- range $alias, $mappmig := .Values.deployment.env.secrets }}
-            {{- range $key, $val := $mappmig }}
+            {{- range $alias, $mapping := .Values.deployment.env.secrets }}
+            {{- range $key, $val := $mapping }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
@@ -44,11 +45,11 @@ spec:
                   key: {{ $val }}
             {{- end }}
             {{- end }}
-            {{- range $alias, $mappmig := .Values.deployment.env.config }}
-            {{- range $key, $val := $mappmig }}
+            {{- range $alias, $mapping := .Values.deployment.env.config }}
+            {{- range $key, $val := $mapping }}
             - name: {{ $key }}
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: {{ index $.Values.global.config $alias }}
                   key: {{ $val }}
             {{- end }}
@@ -62,3 +63,4 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .static.claimName }}
         {{- end }}
+{{- end }}

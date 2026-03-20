@@ -1,19 +1,19 @@
 service:
   type: ClusterIP
-  ports: 
+  ports:
     port: 80
 
 statefulset:
   replicas: 1
-  image: 
-    name: foodgram-frontend
+  image:
+    name: tkshabalin/foodgram-frontend
     tag: latest
-  imagePullPolicy: IfNotPresent
+  imagePullPolicy: Always
 
 volumeMounts:
   config:
     name: nginx-config-volume
-    mountPath: /etc/nginx/conf.d/custom.conf
+    mountPath: /etc/nginx/conf.d/default.conf
     subPath: default.conf
     subName: nginx-config
   media:

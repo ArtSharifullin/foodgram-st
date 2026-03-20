@@ -1,0 +1,16 @@
+sharedSecrets:
+  externalApis:
+    data:
+      NEWSAPI_API_KEY: "dummy"
+      NEWSDATA_API_KEY: "dummy"
+
+db:
+  secret:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgresmaster
+    POSTGRES_DB: foodgramDB
+
+rabbitmq:
+  secret:
+    username: guest
+    password: guest

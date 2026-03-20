@@ -17,51 +17,84 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          {{- with .Values.global.images.api }}
-          image: {{ printf "%s:%s" .name .tag }}
-          imagePullPolicy: {{ .pullPolicy }}
-          {{- end }}
-          command: {{ .Values.deployment.command | toJson }}
-          args: {{ .Values.deployment.args | toJson }}
+          image: "{{ .Values.global.images.api.name }}:{{ .Values.global.images.api.tag }}"
+          imagePullPolicy: {{ .Values.global.images.api.pullPolicy }}
+          command: ["gunicorn"]
+          args: ["--chdir", "/app", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
           ports:
             - containerPort: {{ .Values.service.ports.port }}
-
           volumeMounts:
-            {{- with .Values.volumeMounts }}
-            - name: {{ .media.name }}
-              mountPath: {{ .media.mountPath }}
-            - name: {{ .static.name }}
-              mountPath: {{ .static.mountPath }}
-            {{- end }}
+            - name: {{ .Values.volumeMounts.media.name }}
+              mountPath: {{ .Values.volumeMounts.media.mountPath }}
+            - name: {{ .Values.volumeMounts.static.name }}
+              mountPath: {{ .Values.volumeMounts.static.mountPath }}
           env:
-            {{- range $key, $val := .Values.deployment.env.values }}
-            - name: {{ $key }}
-              value: {{ $val | quote }}
-            {{- end }}
-            {{- range $alias, $mappmig := .Values.deployment.env.secrets }}
-            {{- range $key, $val := $mappmig }}
-            - name: {{ $key }}
+            - name: DJANGO_SETTINGS_MODULE
+              value: "foodgram.settings"
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: port
+
+            - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: {{ index $.Values.global.secrets $alias }}
-                  key: {{ $val }}
-            {{- end }}
-            {{- end }}
-            {{- range $alias, $mappmig := .Values.deployment.env.config }}
-            {{- range $key, $val := $mappmig }}
-            - name: {{ $key }}
+                  name: db-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ index $.Values.global.config $alias }}
-                  key: {{ $val }}
-            {{- end }}
-            {{- end }}
+                  name: db-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_PASSWORD
+
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: password
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-config
+                  key: host
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-config
+                  key: port
+
+            - name: NEWSAPI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: external-apis
+                  key: NEWSAPI_API_KEY
+            - name: NEWSDATA_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: external-apis
+                  key: NEWSDATA_API_KEY
+
       volumes:
-        {{- with .Values.volumeMounts }}
-        - name: {{ .media.name }}
+        - name: {{ .Values.volumeMounts.media.name }}
           persistentVolumeClaim:
-            claimName: {{ .media.claimName }}
-        - name: {{ .static.name }}
+            claimName: {{ .Values.volumeMounts.media.claimName }}
+        - name: {{ .Values.volumeMounts.static.name }}
           persistentVolumeClaim:
-            claimName: {{ .static.claimName }}
-        {{- end }}
+            claimName: {{ .Values.volumeMounts.static.claimName }}

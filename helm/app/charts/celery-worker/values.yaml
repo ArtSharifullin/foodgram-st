@@ -1,52 +1,32 @@
 namespace: foodgram
 svcName: celery-worker-service
 
+global:
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+    vault: vault-approle
+    externalApis: external-apis
+  config:
+    db: db-config
+    rabbitmq: rabbitmq-config
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+
 statefulset:
-  replicas: 1
-
-image:
-  name: tkshabalin/foodgram-back
-  tag: latest
-  pullPolicy: IfNotPresent
-
-secret:
-  DB_PORT: 5432
-  DB_HOST: database
-  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
-  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
-  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
-  DJANGO_SETTINGS_MODULE: foodgram.settings
+  replicas: 0
 
 deployment:
-  replicas: 1
+  replicas: 0
   command: ["celery"]
   args: ["-A", "foodgram.celery", "worker", "--loglevel=info"]
   env:
-    values:
-      DB_HOST: database
-    secrets:
-      db:
-        POSTGRES_DB: POSTGRES_DB
-        POSTGRES_USER: POSTGRES_USER
-        POSTGRES_PASSWORD: POSTGRES_PASSWORD
-      rabbitmq:
-        RABBITMQ_USER: username
-        RABBITMQ_PASSWORD: password
-      vault:
-        VAULT_ADDR: VAULT_ADDR
-        VAULT_KV_MOUNT: VAULT_KV_MOUNT
-        VAULT_ROLE_ID: VAULT_ROLE_ID
-        VAULT_SECRET_ID: VAULT_SECRET_ID
-      externalApis:
-        NEWSAPI_API_KEY: NEWSAPI_API_KEY
-        NEWSDATA_API_KEY: NEWSDATA_API_KEY
-    config:
-      db:
-        POSTGRES_HOST: host
-        POSTGRES_PORT: port
-      rabbitmq:
-        RABBITMQ_HOST: host
-        RABBITMQ_PORT: port
+    values: {}
+    secrets: {}
+    config: {}
 
 volumeMounts:
   media:

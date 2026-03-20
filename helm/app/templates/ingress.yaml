@@ -13,56 +13,29 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: {{ .enableCors | quote }}
     {{- end }}
 spec:
-  {{with .Values.ingress.spec}}
-  ingressClassName: {{ .ingressName }}
+  ingressClassName: {{ .Values.ingress.spec.ingressName }}
   rules:
-    {{with .rules.host }}
-    - host: {{ .name }}
+    - host: {{ .Values.ingress.spec.rules.host.name }}
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.slashService.name }}
-              port:
-                number: {{ .paths.slashService.portNumber }}
-        - path: /api
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.apiAdminService.name }}
-              port:
-                number: {{ .paths.apiAdminService.portNumber }}
-        - path: /admin
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.apiAdminService.name }}
-              port:
-                number: {{ .paths.apiAdminService.portNumber }}
-    - http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.apiAdminService.name }}
-              port:
-                number: {{ .paths.slashService.portNumber }}
-        - path: /api
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.apiAdminService.name }}
-              port:
-                number: {{ .paths.apiAdminService.portNumber }}
-        - path: /admin
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .paths.apiAdminService.name }}
-              port:
-                number: {{ .paths.apiAdminService.portNumber }}
-    {{- end }}
-  {{- end }}
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.slashService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.slashService.portNumber }}
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.portNumber }}
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.portNumber }}

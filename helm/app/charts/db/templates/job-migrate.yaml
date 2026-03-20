@@ -9,11 +9,36 @@ spec:
       restartPolicy: Never
       containers:
         - name: migrate
-          image: foodgram-backend:latest
-          imagePullPolicy: IfNotPresent
-          command: ["sh", "-c", "python manage.py makemigrations && python manage.py migrate"]
-          envFrom:
-            - secretRef:
-                name: db-secrets
-            - configMapRef:
-                name: backend-config
+          image: "{{ .Values.global.images.api.name }}:{{ .Values.global.images.api.tag }}"
+          imagePullPolicy: {{ .Values.global.images.api.pullPolicy }}
+          command: ["sh", "-c", "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate"]
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: "foodgram.settings"
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: port
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_PASSWORD

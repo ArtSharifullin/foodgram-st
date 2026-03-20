@@ -49,6 +49,13 @@ deployment:
       rabbitmq:
         RABBITMQ_HOST: host
         RABBITMQ_PORT: port
+  resources:
+    requests:
+      cpu: 200m
+      memory: 140Mi
+    limits:
+      cpu: 600m
+      memory: 149Mi
 
 
 volumeMounts:

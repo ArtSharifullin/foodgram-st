@@ -90,6 +90,7 @@ spec:
                 secretKeyRef:
                   name: external-apis
                   key: NEWSDATA_API_KEY
+          resources: {{- toYaml .Values.resources | nindent 12 }}
 
       volumes:
         - name: {{ .Values.volumeMounts.media.name }}

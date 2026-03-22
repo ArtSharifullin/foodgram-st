@@ -1,41 +1,36 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Chart.Name }}-statefullset
+  name: {{ .Chart.Name }}-statefulset
   namespace: foodgram
   labels:
 {{ include "redis.labels" . | indent 4 }}
 spec:
-  serviceName: {{ .Chart.Name }}-service
-  {{- with .Values.statefulset }}
-  replicas: {{ .replicas }}
+  serviceName: {{ .Values.service.ports.name }}-headless-service
+  replicas: {{ .Values.statefulset.replicas }}
   selector:
     matchLabels:
-      app: {{ .name }}
+      app: {{ .Values.statefulset.name }}
   template:
     metadata:
       labels:
-        app: {{ .name }}
+        app: {{ .Values.statefulset.name }}
     spec:
       containers:
-      - name: {{ .name }}
-        image: {{ printf "%s:%s" .image.name .image.tag }}
-        imagePullPolicy: {{ .image.pullPolicy | quote}}
-  {{- end }}
-        ports:
-        - containerPort: {{ .Values.service.ports.port }}
-        volumeMounts:
-        - name: {{ .Chart.Name }}-storage
-  {{- with .Values.statefulset }}
-          mountPath: {{ .pvc.mountPath }}
+        - name: {{ .Values.statefulset.name }}
+          image: "{{ .Values.statefulset.image.name }}:{{ .Values.statefulset.image.tag }}"
+          imagePullPolicy: {{ .Values.statefulset.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          volumeMounts:
+            - name: {{ .Chart.Name }}-storage
+              mountPath: {{ .Values.statefulset.pvc.mountPath }}
   volumeClaimTemplates:
-  - metadata:
-      name: {{ .name }}-storage
-    spec:
-      accessModes: 
-      - {{ .pvc.accessModes | quote}}
-      resources:
-        requests:
-          storage: {{ .pvc.storage | quote}}
-  {{- end }}
-  
+    - metadata:
+        name: {{ .Chart.Name }}-storage
+      spec:
+        accessModes:
+          - {{ .Values.statefulset.pvc.accessModes | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.statefulset.pvc.storage | quote }}

@@ -2,19 +2,19 @@ service:
   type: ClusterIP
   ports:
     name: redis
-    port: 6739
-    targetPort: 6739
-    protocol: TCP 
+    port: 6379
+    targetPort: 6379
+    protocol: TCP
 
 statefulset:
   name: redis
   replicas: 1
-  image: 
+  image:
     name: redis/redis-stack-server
     tag: 7.4.0-v8
     pullPolicy: IfNotPresent
   pvc:
-    name: date
+    name: data
     mountPath: /data/redis
     accessModes: ReadWriteOnce
     storage: 1Gi

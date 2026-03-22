@@ -21,7 +21,7 @@ global:
       pullPolicy: IfNotPresent
 
 ingress:
-  enabled: false
+  enabled: true
   host: foodgram.local
   tls:
     enabled: false
@@ -37,7 +37,7 @@ statefulset:
   replicas: 0
 
 deployment:
-  replicas: 0
+  replicas: 1
   command: ["celery"]
   args: ["-A", "foodgram.celery", "flower", "--port=5555"]
   env:

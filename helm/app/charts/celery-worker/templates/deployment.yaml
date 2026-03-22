@@ -1,13 +1,13 @@
-{{- if gt (int .Values.statefulset.replicas) 0 }}
+{{- if gt (int .Values.deployment.replicas) 0 }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-deployment
-  namespace: foodgram
+  namespace: {{ .Values.namespace }}
   labels:
 {{ include "celery-worker.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.statefulset.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
 {{ include "celery-worker.selectorLabels" . | indent 6 }}

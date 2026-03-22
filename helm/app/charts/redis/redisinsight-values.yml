@@ -7,4 +7,4 @@ ingress:
     - host: redis-insight.foodgram.local
       paths:
         - /
-      pathType: Prefixc
+      pathType: Prefix

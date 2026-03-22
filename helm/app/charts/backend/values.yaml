@@ -1,8 +1,4 @@
 namespace: foodgram
-svcName: backend-service
-
-statefulset:
-  replicas: 1
 
 image:
   name: tkshabalin/foodgram-back
@@ -11,52 +7,19 @@ image:
 
 service:
   type: ClusterIP
-  ports: 
-    host: database
-    name: postgresql
+  ports:
     port: 8000
 
 deployment:
   replicas: 1
   command: ["gunicorn"]
-  args: ["--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
-  env:
-    values:
-      DB_HOST: database
-      DB_PORT: "5432"
-      DJANGO_SETTINGS_MODULE: foodgram.settings
-    secret: app-env
-    secrets:
-      db:
-        POSTGRES_DB: POSTGRES_DB
-        POSTGRES_USER: POSTGRES_USER
-        POSTGRES_PASSWORD: POSTGRES_PASSWORD
-      rabbitmq:
-        RABBITMQ_USER: username
-        RABBITMQ_PASSWORD: password
-      vault:
-        VAULT_ADDR: VAULT_ADDR
-        VAULT_KV_MOUNT: VAULT_KV_MOUNT
-        VAULT_ROLE_ID: VAULT_ROLE_ID
-        VAULT_SECRET_ID: VAULT_SECRET_ID
-      externalApis:
-        NEWSAPI_API_KEY: NEWSAPI_API_KEY
-        NEWSDATA_API_KEY: NEWSDATA_API_KEY
-    config:
-      db:
-        POSTGRES_HOST: host
-        POSTGRES_PORT: port
-      rabbitmq:
-        RABBITMQ_HOST: host
-        RABBITMQ_PORT: port
   resources:
     requests:
       cpu: 200m
-      memory: 140Mi
+      memory: 130Mi
     limits:
-      cpu: 600m
-      memory: 149Mi
-
+      cpu: 370m
+      memory: 138Mi
 
 volumeMounts:
   media:
@@ -67,5 +30,3 @@ volumeMounts:
     name: backend-static
     mountPath: /backend_static
     claimName: static-pvc
-
-

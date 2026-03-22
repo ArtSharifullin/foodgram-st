@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-deployment
-  namespace: foodgram
+  namespace: {{ .Values.namespace }}
   labels:
 {{ include "backend.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.statefulset.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -17,10 +17,19 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.global.images.api.name }}:{{ .Values.global.images.api.tag }}"
-          imagePullPolicy: {{ .Values.global.images.api.pullPolicy }}
-          command: ["gunicorn"]
-          args: ["--chdir", "/app", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: {{ .Values.deployment.command | toJson }}
+          args:
+            - "--chdir"
+            - "/app"
+            - "--bind"
+            - "0.0.0.0:8000"
+            - "--workers"
+            - "2"
+            - "--timeout"
+            - "120"
+            - "foodgram.wsgi:application"
           ports:
             - containerPort: {{ .Values.service.ports.port }}
           volumeMounts:
@@ -28,21 +37,10 @@ spec:
               mountPath: {{ .Values.volumeMounts.media.mountPath }}
             - name: {{ .Values.volumeMounts.static.name }}
               mountPath: {{ .Values.volumeMounts.static.mountPath }}
+          envFrom:
+            - configMapRef:
+                name: backend-config
           env:
-            - name: DJANGO_SETTINGS_MODULE
-              value: "foodgram.settings"
-
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: db-config
-                  key: host
-            - name: DB_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: db-config
-                  key: port
-
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
@@ -90,7 +88,8 @@ spec:
                 secretKeyRef:
                   name: external-apis
                   key: NEWSDATA_API_KEY
-          resources: {{- toYaml .Values.resources | nindent 12 }}
+          resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
 
       volumes:
         - name: {{ .Values.volumeMounts.media.name }}

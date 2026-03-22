@@ -1,0 +1,2130 @@
+=== helm/.env.example ===
+# Kubernetes namespace to deploy into
+NAMESPACE=foodgram
+# Helm release name
+RELEASE_NAME=foodgram
+
+# Vault AppRole credentials used by helm-secrets/vals to resolve secrets
+VAULT_ADDR=http://vault.vault.svc.cluster.local:8200
+VAULT_ROLE_ID=changeme-role-id
+VAULT_SECRET_ID=changeme-secret-id
+VAULT_KV_MOUNT=secrets
+
+=== helm/app/Chart.yaml ===
+apiVersion: v2
+name: app
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/backend/Chart.yaml ===
+apiVersion: v2
+name: backend
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/backend/templates/configmap.yaml ===
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: foodgram
+  labels:
+{{ include "backend.labels" . | indent 4 }}
+data:
+  DJANGO_SETTINGS_MODULE: "foodgram.settings"
+  DB_HOST: "database"
+  DB_PORT: "5432"
+=== helm/app/charts/backend/templates/deployment.yaml ===
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: {{ .Values.namespace }}
+  labels:
+{{ include "backend.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: {{ .Values.deployment.command | toJson }}
+          args:
+            - "--chdir"
+            - "/app"
+            - "--bind"
+            - "0.0.0.0:8000"
+            - "--workers"
+            - "2"
+            - "--timeout"
+            - "120"
+            - "foodgram.wsgi:application"
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          volumeMounts:
+            - name: {{ .Values.volumeMounts.media.name }}
+              mountPath: {{ .Values.volumeMounts.media.mountPath }}
+            - name: {{ .Values.volumeMounts.static.name }}
+              mountPath: {{ .Values.volumeMounts.static.mountPath }}
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: "foodgram.settings"
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: port
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_PASSWORD
+
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: password
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-config
+                  key: host
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rabbitmq-config
+                  key: port
+
+            - name: NEWSAPI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: external-apis
+                  key: NEWSAPI_API_KEY
+            - name: NEWSDATA_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: external-apis
+                  key: NEWSDATA_API_KEY
+
+          resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+
+      volumes:
+        - name: {{ .Values.volumeMounts.media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumeMounts.media.claimName }}
+        - name: {{ .Values.volumeMounts.static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumeMounts.static.claimName }}
+=== helm/app/charts/backend/templates/job-static.yaml ===
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: collectstatic-job
+  namespace: {{ .Values.namespace }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: collectstatic
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python", "/app/manage.py", "collectstatic", "--noinput"]
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: "foodgram.settings"
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: port
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: backend-static
+              mountPath: /backend_static
+      volumes:
+        - name: backend-static
+          persistentVolumeClaim:
+            claimName: static-pvc
+=== helm/app/charts/backend/templates/service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  {{- $override := (include "app.backendServiceNameOrEmpty" .) -}}
+  {{- if $override }}
+  name: {{ $override }}
+  {{- else }}
+  name: {{ .Chart.Name }}-service
+  {{- end }}
+  namespace: foodgram
+  labels:
+{{ include "backend.labels" . | indent 4 }}
+spec:
+  {{- with .Values.service.ports }}
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .port }}
+  {{- end }}
+  selector:
+    app: {{ .Chart.Name }}
+=== helm/app/charts/backend/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "backend.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "backend.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "backend.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "backend.labels" -}}
+helm.sh/chart: {{ include "backend.chart" . }}
+{{ include "backend.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "backend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "backend.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "backend.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "backend.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{- define "backend.serviceName" -}}
+{{- default (printf "$s-service" .Chart.Name) .Values.global.service.backend }}
+{{- end -}}
+
+=== helm/app/charts/backend/values.yaml ===
+namespace: foodgram
+svcName: backend-service
+
+statefulset:
+  replicas: 1
+
+image:
+  name: tkshabalin/foodgram-back
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports: 
+    host: database
+    name: postgresql
+    port: 8000
+
+deployment:
+  replicas: 1
+  command: ["gunicorn"]
+  args: ["--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "foodgram.wsgi:application"]
+  env:
+    values:
+      DB_HOST: database
+      DB_PORT: "5432"
+      DJANGO_SETTINGS_MODULE: foodgram.settings
+    secret: app-env
+    secrets:
+      db:
+        POSTGRES_DB: POSTGRES_DB
+        POSTGRES_USER: POSTGRES_USER
+        POSTGRES_PASSWORD: POSTGRES_PASSWORD
+      rabbitmq:
+        RABBITMQ_USER: username
+        RABBITMQ_PASSWORD: password
+      vault:
+        VAULT_ADDR: VAULT_ADDR
+        VAULT_KV_MOUNT: VAULT_KV_MOUNT
+        VAULT_ROLE_ID: VAULT_ROLE_ID
+        VAULT_SECRET_ID: VAULT_SECRET_ID
+      externalApis:
+        NEWSAPI_API_KEY: NEWSAPI_API_KEY
+        NEWSDATA_API_KEY: NEWSDATA_API_KEY
+    config:
+      db:
+        POSTGRES_HOST: host
+        POSTGRES_PORT: port
+      rabbitmq:
+        RABBITMQ_HOST: host
+        RABBITMQ_PORT: port
+  resources:
+    requests:
+      cpu: 200m
+      memory: 140Mi
+    limits:
+      cpu: 600m
+      memory: 151Mi
+
+
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc
+
+
+
+=== helm/app/charts/celery-worker/Chart.yaml ===
+apiVersion: v2
+name: celery-worker
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/celery-worker/templates/deployment.yaml ===
+{{- if gt (int .Values.statefulset.replicas) 0 }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "celery-worker.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+{{ include "celery-worker.selectorLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "celery-worker.selectorLabels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.global.images.api }}
+          image: {{ printf "%s:%s" .name .tag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          command: {{ .Values.deployment.command | toJson }}
+          args: {{ .Values.deployment.args | toJson }}
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+          env:
+            {{- range $key, $val := .Values.deployment.env.values }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+            {{- range $alias, $mapping := .Values.deployment.env.secrets }}
+            {{- range $key, $val := $mapping }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ index $.Values.global.secrets $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+            {{- range $alias, $mapping := .Values.deployment.env.config }}
+            {{- range $key, $val := $mapping }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ index $.Values.global.config $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.claimName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.claimName }}
+        {{- end }}
+{{- end }}
+=== helm/app/charts/celery-worker/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "celery-worker.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "celery-worker.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "celery-worker.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "celery-worker.labels" -}}
+helm.sh/chart: {{ include "celery-worker.chart" . }}
+{{ include "celery-worker.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "celery-worker.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "celery-worker.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "celery-worker.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "celery-worker.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{- define "app.dbSecretsName" -}}
+rabbitmq
+{{- end -}}
+
+=== helm/app/charts/celery-worker/values.yaml ===
+namespace: foodgram
+svcName: celery-worker-service
+
+global:
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+    vault: vault-approle
+    externalApis: external-apis
+  config:
+    db: db-config
+    rabbitmq: rabbitmq-config
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+
+statefulset:
+  replicas: 0
+
+deployment:
+  replicas: 0
+  command: ["celery"]
+  args: ["-A", "foodgram.celery", "worker", "--loglevel=info"]
+  env:
+    values: {}
+    secrets: {}
+    config: {}
+
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc
+=== helm/app/charts/db/Chart.yaml ===
+apiVersion: v2
+name: db
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/db/templates/db-configmap.yaml ===
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: foodgram
+  name: db-config
+  labels:
+{{ include "db.labels" . | indent 4 }}
+data:
+  host: {{ .Values.service.ports.host | quote }}
+  port: {{ .Values.service.ports.port | quote }}
+=== helm/app/charts/db/templates/db-pv.yaml ===
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-pv
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.statefulset.pvc.storage }}
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes }}
+  hostPath:
+    path: {{ .Values.statefulset.pvc.hostpath | quote}}
+=== helm/app/charts/db/templates/db-pvc.yml ===
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Chart.Name }}-pvc
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.statefulset.pvc.storage }}
+=== helm/app/charts/db/templates/db-secret.yaml ===
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "db.secretsName" . }}
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+data:
+  {{- range $key, $val := .Values.secret }}
+  {{ $key }}: {{ $val | b64enc }}
+  {{- end }}
+
+=== helm/app/charts/db/templates/db-service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  {{- with .Values.service }}
+  type: {{ .type }}
+  clusterIP: None
+  ports:
+  {{- with  .ports }}
+  - name: {{ .name }}
+    port: {{ .port }}
+    targetPort: {{ .targetPort }}
+    protocol: {{ .protocol }} 
+  {{- end }}
+  {{- end }}
+  selector:
+    app: {{ .Values.statefulset.app }}
+=== helm/app/charts/db/templates/db-statefulset.yaml ===
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}-sts
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  serviceName: {{ .Values.service.ports.host | quote }}
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.app }}
+    spec:
+      containers:
+        - name: {{ .Values.statefulset.app }}
+          image: "{{ .Values.statefulset.image.name }}:{{ .Values.statefulset.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          envFrom:
+            - secretRef:
+                name: {{ include "db.secretsName" . }}
+          volumeMounts:
+            - name: {{ .Values.statefulset.name }}-storage
+              mountPath: {{ .Values.statefulset.pvc.mountPath }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.statefulset.name }}-storage
+      spec:
+        accessModes:
+          - {{ .Values.statefulset.pvc.accessModes | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.statefulset.pvc.storage | quote }}
+=== helm/app/charts/db/templates/job-migrate.yaml ===
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-job
+  namespace: foodgram
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: "{{ .Values.global.images.api.name }}:{{ .Values.global.images.api.tag }}"
+          imagePullPolicy: {{ .Values.global.images.api.pullPolicy }}
+          command: ["sh", "-c", "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate"]
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: "foodgram.settings"
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: port
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: POSTGRES_PASSWORD
+=== helm/app/charts/db/templates/media-pvc.yaml ===
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.statefulset.pvc.storage | quote}}
+=== helm/app/charts/db/templates/static-pvc.yaml ===
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-pvc
+  namespace: foodgram
+  labels:
+{{ include "db.labels" . | indent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.statefulset.pvc.accessModes | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.statefulset.pvc.storage | quote}}
+=== helm/app/charts/db/templates/_helpers.tpl ===
+{{- define "db.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "db.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "db.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "db.labels" -}}
+helm.sh/chart: {{ include "db.chart" . }}
+{{ include "db.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "db.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "db.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "db.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "db.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+
+{{- define "db.secretsName" -}}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secrets.db }}
+{{- end }}
+
+{{- define "db.ConfigMapName" -}}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secrets.db }}
+{{- end }}
+=== helm/app/charts/db/values.yaml ===
+service:
+  type: ClusterIP
+  ports: 
+    host: database
+    name: postgresql
+    port: 5432
+    targetPort: 5432
+    protocol: TCP 
+
+secret:
+  POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+  POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+  POSTGRES_DB: ref+vault://secrets/db#/POSTGRES_DB
+
+statefulset:
+  name: db
+  app: postgres
+  replicas: 1
+  image: 
+    name: postgres
+    tag: "17"
+  pvc:
+    mountPath: /var/lib/postgresql/data
+    accessModes: ReadWriteOnce
+    storage: 1Gi
+    hostpath: /data/db
+
+=== helm/app/charts/flower/Chart.yaml ===
+apiVersion: v2
+name: flower
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/flower/templates/deployment.yaml ===
+{{- if gt (int .Values.statefulset.replicas) 0 }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "flower.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+{{ include "flower.selectorLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "flower.selectorLabels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.global.images.api }}
+          image: {{ printf "%s:%s" .name .tag }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          command: {{ .Values.deployment.command | toJson }}
+          args: {{ .Values.deployment.args | toJson }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+          env:
+            {{- range $key, $val := .Values.deployment.env.values }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+            {{- range $alias, $mapping := .Values.deployment.env.secrets }}
+            {{- range $key, $val := $mapping }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ index $.Values.global.secrets $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+            {{- range $alias, $mapping := .Values.deployment.env.config }}
+            {{- range $key, $val := $mapping }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ index $.Values.global.config $alias }}
+                  key: {{ $val }}
+            {{- end }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.claimName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.claimName }}
+        {{- end }}
+{{- end }}
+=== helm/app/charts/flower/templates/ingress.yaml ===
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  labels:
+    {{- include "flower.labels" . | nindent 4 }}
+spec:
+  ingressClassName: nginx
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /flower
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.svcName }}
+                port:
+                  number: {{ .Values.service.ports.port }}
+{{- end }}
+=== helm/app/charts/flower/templates/service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.svcName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "flower.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "flower.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+=== helm/app/charts/flower/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "flower.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "flower.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "flower.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "flower.labels" -}}
+helm.sh/chart: {{ include "flower.chart" . }}
+{{ include "flower.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "flower.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "flower.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "flower.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "flower.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{- define "flower.serviceName" -}}
+{{- default (printf "$s-service" .Chart.Name) .Values.global.service.flower }}
+{{- end -}}
+=== helm/app/charts/flower/values.yaml ===
+namespace: foodgram
+svcName: flower-service
+
+global:
+  namespace: foodgram
+  name: flower
+  svcName: flower-service
+  environment: development
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+    vault: vault-approle
+    externalApis: external-apis
+  config:
+    db: db-config
+    rabbitmq: rabbitmq-config
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: IfNotPresent
+
+ingress:
+  enabled: false
+  host: foodgram.local
+  tls:
+    enabled: false
+    secretName: foodgram-tls
+
+service:
+  type: ClusterIP
+  ports:
+    port: 5555
+    targetPort: 5555
+
+statefulset:
+  replicas: 0
+
+deployment:
+  replicas: 0
+  command: ["celery"]
+  args: ["-A", "foodgram.celery", "flower", "--port=5555"]
+  env:
+    values: {}
+    secrets: {}
+    config: {}
+
+volumeMounts:
+  media:
+    name: media-volume
+    mountPath: /app/media
+    claimName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    claimName: static-pvc
+=== helm/app/charts/nginx/Chart.yaml ===
+apiVersion: v2
+name: nginx
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/nginx/templates/nginx-configmap.yml ===
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-config
+  namespace: foodgram
+  labels:
+{{ include "nginx.labels" . | indent 4 }}
+data:
+  default.conf: |
+    server {
+        listen 80;
+        root /usr/share/nginx/html;
+        index index.html;
+    
+        location / {
+            try_files $uri /index.html;
+        }
+    
+        location /media/ {
+          alias /app/media/;
+          expires 30d;
+        }
+
+        location /static/ {
+            root /usr/share/nginx/html;
+            expires 1y;
+            add_header Cache-Control "public";
+        }
+    
+        location /backend_static/ {
+            alias /backend_static/;
+            expires 1y;
+            add_header Cache-Control "public";
+        }
+    
+        location /api/ {
+            proxy_pass http://{{ include "app.backendServiceName" . }}:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    
+        location /admin/ {
+          proxy_pass http://{{ include "app.backendServiceName" . }}:8000;
+          proxy_set_header Host $host;
+        }
+    
+        location /ws/ {
+          proxy_pass http://{{ include "app.backendServiceName" . }}:8001;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+        }
+    }
+=== helm/app/charts/nginx/templates/nginx-deployment.yaml ===
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  namespace: foodgram
+  labels:
+{{ include "nginx.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+{{ include "nginx.selectorLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "nginx.selectorLabels" . | indent 8 }}
+    spec:
+      initContainers:
+      - name: init-dirs
+        image: busybox
+        command: ['sh', '-c', 'mkdir -p /app/media /backend_static']
+        volumeMounts:
+          - name: media-volume
+            mountPath: /app/media
+          - name: backend-static
+            mountPath: /backend_static
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.statefulset }}
+          image: {{ printf "%s:%s" .image.name .image.tag }}
+          imagePullPolicy: {{ .imagePullPolicy }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          volumeMounts:
+            {{- with .Values.volumeMounts }}
+            - name: {{ .config.name }}
+              mountPath: {{ .config.mountPath }}
+              subPath: {{ .config.subPath }}
+            - name: {{ .media.name }}
+              mountPath: {{ .media.mountPath }}
+            - name: {{ .static.name }}
+              mountPath: {{ .static.mountPath }}
+            {{- end }}
+      volumes:
+        {{- with .Values.volumeMounts }}
+        - name: {{ .config.name }}
+          configMap:
+            name: {{ .config.subName }}
+        - name: {{ .media.name }}
+          persistentVolumeClaim:
+            claimName: {{ .media.subName }}
+        - name: {{ .static.name }}
+          persistentVolumeClaim:
+            claimName: {{ .static.subName }}
+        {{- end }}
+=== helm/app/charts/nginx/templates/nginx-service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  {{- $override := (include "app.nginxServiceNameOrEmpty" .) -}}
+  {{- if $override }}
+  name: {{ $override }}
+  {{- else }}
+  name: {{ .Chart.Name }}-service
+  {{- end }}
+  namespace: foodgram
+  labels:
+{{ include "nginx.labels" . | indent 4 }}
+spec:
+  {{- with .Values.service }}
+  type: {{ .type }}
+  ports:
+    - port: {{ .ports.port }}
+      targetPort: {{ .ports.port }}
+  {{- end }}
+  selector:
+{{ include "nginx.selectorLabels" . | indent 4 }}
+=== helm/app/charts/nginx/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "nginx.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "nginx.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "nginx.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "nginx.labels" -}}
+helm.sh/chart: {{ include "nginx.chart" . }}
+{{ include "nginx.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "nginx.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "nginx.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "nginx.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "nginx.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+=== helm/app/charts/nginx/values.yaml ===
+service:
+  type: ClusterIP
+  ports:
+    port: 80
+
+statefulset:
+  replicas: 1
+  image:
+    name: tkshabalin/foodgram-frontend
+    tag: latest
+  imagePullPolicy: Always
+
+volumeMounts:
+  config:
+    name: nginx-config-volume
+    mountPath: /etc/nginx/conf.d/default.conf
+    subPath: default.conf
+    subName: nginx-config
+  media:
+    name: media-volume
+    mountPath: /app/media
+    subName: media-pvc
+  static:
+    name: backend-static
+    mountPath: /backend_static
+    subName: static-pvc
+=== helm/app/charts/rabbitmq/Chart.yaml ===
+apiVersion: v2
+name: rabbitmq
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+=== helm/app/charts/rabbitmq/templates/configmap.yaml ===
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: foodgram
+  name: {{ include "rabbitmq.configMapName" . }}
+  labels:
+{{ include "rabbitmq.labels" . | indent 4 }}
+data:
+  host: rabbitmq.rabbitmq.svc.cluster.local
+  port: {{ .Values.service.port | quote }}
+  {{- range $key, $val := .Values.config }}
+  {{ $key }}: {{ $val }}
+  {{- end }}
+=== helm/app/charts/rabbitmq/templates/rabbitmq-ingress.yaml ===
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rmq-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  labels:
+    {{- include "rabbitmq.labels" . | nindent 4 }}
+spec:
+  rules:
+    - host: rabbitmq.foodgram.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rmq-rabbitmq
+                port:
+                  number: 15672
+=== helm/app/charts/rabbitmq/templates/secret.yaml ===
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "rabbitmq.secretsName" . }}
+  namespace: foodgram
+  labels:
+{{ include "rabbitmq.labels" . | indent 4 }}
+data:
+  {{- range $key, $val := .Values.secret }}
+  {{ $key }}: {{ $val | b64enc | quote }}
+  {{- end }}
+=== helm/app/charts/rabbitmq/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "rabbitmq.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "rabbitmq.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "rabbitmq.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "rabbitmq.labels" -}}
+helm.sh/chart: {{ include "rabbitmq.chart" . }}
+{{ include "rabbitmq.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "rabbitmq.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "rabbitmq.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "rabbitmq.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "rabbitmq.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+
+{{- define "rabbitmq.secretsName" -}}
+{{- default (printf "%s-secrets" .Chart.Name) .Values.global.secrets.rabbitmq }}
+{{- end }}
+
+{{- define "rabbitmq.configMapName" -}}
+{{- default (printf "%s-configmap" .Chart.Name) .Values.global.config.rabbitmq }}
+{{- end }}
+=== helm/app/charts/rabbitmq/values.yaml ===
+service:
+  port: 5672
+  
+config: {}
+
+secret:
+  username: ref+vault://secrets/rabbitmq#/username
+  password: ref+vault://secrets/rabbitmq#/password
+=== helm/app/charts/redis/.helmignore ===
+# Patterns to ignore when building packages.
+# This supports shell glob matching, relative path matching, and
+# negation (prefixed with !). Only one pattern per line.
+.DS_Store
+# Common VCS dirs
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+
+=== helm/app/charts/redis/Chart.yaml ===
+apiVersion: v2
+name: redis
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+=== helm/app/charts/redis/deploy.sh ===
+helm upgrade --install redis redis -n foodgram
+
+helm repo add heywood8-helm-charts https://heywood8.github.io/helm-charts/
+
+helm upgrade --install my-redisinsight heywood8-helm-charts/redisinsight \
+  -n foodgram \
+  -f redisinsight-values.yml \
+  --version 0.4.5
+=== helm/app/charts/redis/redisinsight-values.yml ===
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  pathType: Prefix
+  hosts:
+    - host: redis-insight.foodgram.local
+      paths:
+        - /
+      pathType: Prefix
+=== helm/app/charts/redis/templates/headless-service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.ports.name }}-headless-service
+  namespace: foodgram
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+    - port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+  selector:
+    app: {{ .Values.service.ports.name }}
+=== helm/app/charts/redis/templates/service.yaml ===
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.ports.name }}-service
+  namespace: foodgram
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: redis.foodgram.local
+spec:
+  type: LoadBalancer
+  ports:
+    - port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+  selector:
+    app: {{ .Values.service.ports.name }}
+=== helm/app/charts/redis/templates/statefulset.yaml ===
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}-statefulset
+  namespace: foodgram
+  labels:
+{{ include "redis.labels" . | indent 4 }}
+spec:
+  serviceName: {{ .Values.service.ports.name }}-headless-service
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.name }}
+    spec:
+      containers:
+        - name: {{ .Values.statefulset.name }}
+          image: "{{ .Values.statefulset.image.name }}:{{ .Values.statefulset.image.tag }}"
+          imagePullPolicy: {{ .Values.statefulset.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.ports.port }}
+          volumeMounts:
+            - name: {{ .Chart.Name }}-storage
+              mountPath: {{ .Values.statefulset.pvc.mountPath }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Chart.Name }}-storage
+      spec:
+        accessModes:
+          - {{ .Values.statefulset.pvc.accessModes | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.statefulset.pvc.storage | quote }}
+=== helm/app/charts/redis/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "redis.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "redis.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "redis.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "redis.labels" -}}
+helm.sh/chart: {{ include "redis.chart" . }}
+{{ include "redis.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "redis.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "redis.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "redis.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "redis.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+=== helm/app/charts/redis/values.yaml ===
+service:
+  type: ClusterIP
+  ports:
+    name: redis
+    port: 6379
+    targetPort: 6379
+    protocol: TCP
+
+statefulset:
+  name: redis
+  replicas: 1
+  image:
+    name: redis/redis-stack-server
+    tag: 7.4.0-v8
+    pullPolicy: IfNotPresent
+  pvc:
+    name: data
+    mountPath: /data/redis
+    accessModes: ReadWriteOnce
+    storage: 1Gi
+=== helm/app/templates/ingress.yaml ===
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.ingress.namespace }}
+  annotations:
+    {{- with .Values.ingress.annotations }}
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .proxyBodySize | quote }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .proxyReadTimeout | quote }}
+    nginx.ingress.kubernetes.io/proxy-send-timeout: {{ .proxySendTimeout | quote }}
+    nginx.ingress.kubernetes.io/backend-protocol: {{ .backendProtocol | quote }}
+    nginx.ingress.kubernetes.io/cors-allow-origin: {{ .corsAllowOrigin | quote }}
+    nginx.ingress.kubernetes.io/enable-cors: {{ .enableCors | quote }}
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.spec.ingressName }}
+  rules:
+    - host: {{ .Values.ingress.spec.rules.host.name }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.slashService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.slashService.portNumber }}
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.portNumber }}
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.name }}
+                port:
+                  number: {{ .Values.ingress.spec.rules.host.paths.apiAdminService.portNumber }}
+=== helm/app/templates/namespace.yaml ===
+{{/*
+Namespace создаётся через:
+helm upgrade --install ... --create-namespace
+Поэтому отдельный Namespace template отключаем,
+иначе получаем "namespaces foodgram already exists".
+*/}}
+=== helm/app/templates/shared-secrets.yaml ===
+{{- range $alias, $secret := .Values.sharedSecrets }}
+{{- if $secret.data }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ default $alias $secret.name }}
+  namespace: {{ $.Release.Namespace }}
+type: Opaque
+data:
+{{- range $key, $val := $secret.data }}
+  {{ $key }}: {{ $val | b64enc }}
+{{- end }}
+---
+{{- end }}
+{{- end }}
+
+
+=== helm/app/templates/_helpers.tpl ===
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "app.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Return backend service name from top-level values with a safe default
+*/}}
+{{- define "app.backendServiceName" -}}
+{{- if and .Values.ingress .Values.ingress.spec .Values.ingress.spec.rules .Values.ingress.spec.rules.host .Values.ingress.spec.rules.host.paths .Values.ingress.spec.rules.host.paths.apiAdminService -}}
+  {{- .Values.ingress.spec.rules.host.paths.apiAdminService.name -}}
+{{- else -}}
+  backend-service
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return backend service name or empty (for conditional fallback in subcharts)
+*/}}
+{{- define "app.backendServiceNameOrEmpty" -}}
+{{- if and .Values.ingress .Values.ingress.spec .Values.ingress.spec.rules .Values.ingress.spec.rules.host .Values.ingress.spec.rules.host.paths .Values.ingress.spec.rules.host.paths.apiAdminService -}}
+  {{- .Values.ingress.spec.rules.host.paths.apiAdminService.name -}}
+{{- else -}}
+  {{- "" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return nginx service name or empty (for conditional fallback in subcharts)
+*/}}
+{{- define "app.nginxServiceNameOrEmpty" -}}
+{{- if and .Values.ingress .Values.ingress.spec .Values.ingress.spec.rules .Values.ingress.spec.rules.host .Values.ingress.spec.rules.host.paths .Values.ingress.spec.rules.host.paths.slashService -}}
+  {{- .Values.ingress.spec.rules.host.paths.slashService.name -}}
+{{- else -}}
+  {{- "" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return DB secrets name from top-level values with a safe default
+*/}}
+{{- define "app.dbSecretsName" -}}
+{{- if and .Values.global .Values.global.secrets .Values.global.secrets.db -}}
+  {{- .Values.global.secrets.db -}}
+{{- else -}}
+  db-secrets
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create a default fully qualified app name.
+*/}}
+{{- define "app.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "app.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "app.labels" -}}
+helm.sh/chart: {{ include "app.chart" . }}
+{{ include "app.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "app.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "app.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+=== helm/app/values.yaml ===
+global:
+  secrets:
+    db: db-secrets
+    rabbitmq: rabbitmq-secrets
+    vault: vault-approle
+    externalApis: external-apis
+  config:
+    db: db-config
+    rabbitmq: rabbitmq-config
+  service:
+    backend: backend-service
+    frontend: frontend-service
+    flower: flower-service
+  images:
+    api:
+      name: tkshabalin/foodgram-back
+      tag: latest
+      pullPolicy: Always
+
+sharedSecrets:
+  vault:
+    name: vault-approle
+    data:
+      VAULT_ADDR: http://vault.vault.svc.cluster.local:8200
+      VAULT_KV_MOUNT: secrets
+      VAULT_ROLE_ID: ""
+      VAULT_SECRET_ID: ""
+  externalApis:
+    name: external-apis
+    data:
+      NEWSAPI_API_KEY: ""
+      NEWSDATA_API_KEY: ""
+
+baseHost:
+ingress:
+  name: foodgram-ingress
+  namespace: foodgram
+  host: foodgram.local
+  annotations:
+    proxyBodySize: 10m
+    proxyReadTimeout: 3600
+    proxySendTimeout: 3600
+    backendProtocol: HTTP
+    corsAllowOrigin: "*"
+    enableCors: true
+  spec:
+    ingressName: nginx
+    rules:
+      host:
+        name: foodgram.local
+        paths:
+          slashService:
+            name: nginx-service
+            portNumber: 80
+          apiAdminService:
+            name: backend-service
+            portNumber: 8000
+
+service:
+  port: 8000
+
+flower:
+  namespace: foodgram
+  ingress:
+    host: foodgram.local
+
+=== helm/deploy.sh ===
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CHART_DIR="${SCRIPT_DIR}/app"
+VALUES_FILES=(-f "${CHART_DIR}/values.yaml")
+
+if [ -f "${SCRIPT_DIR}/.env" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "${SCRIPT_DIR}/.env"
+  set +a
+fi
+
+if [ -f "${SCRIPT_DIR}/values.vault.yaml" ]; then
+  VALUES_FILES+=(-f "${SCRIPT_DIR}/values.vault.yaml")
+fi
+
+NAMESPACE="${NAMESPACE:-foodgram}"
+RELEASE_NAME="${RELEASE_NAME:-foodgram}"
+
+helm secrets --backend vals upgrade --install "${RELEASE_NAME}" "${CHART_DIR}" \
+  --namespace "${NAMESPACE}" \
+  --create-namespace \
+  "${VALUES_FILES[@]}"
+
+
+=== helm/values.vault.example.yaml ===
+sharedSecrets:
+  vault:
+    data:
+      VAULT_ADDR: http://vault.vault.svc.cluster.local:8200
+      VAULT_KV_MOUNT: secrets
+      VAULT_ROLE_ID: ref+vault://secrets/platform#/VAULT_ROLE_ID
+      VAULT_SECRET_ID: ref+vault://secrets/platform#/VAULT_SECRET_ID
+  externalApis:
+    data:
+      NEWSAPI_API_KEY: ref+vault://secrets/apikeys#/newsapi
+      NEWSDATA_API_KEY: ref+vault://secrets/apikeys#/newsdata
+backend:
+  secret:
+    POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+    POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+celery-worker:
+  secret:
+    POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+    POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+flower:
+  secret:
+    POSTGRES_USER: ref+vault://secrets/db#/POSTGRES_USER
+    POSTGRES_PASSWORD: ref+vault://secrets/db#/POSTGRES_PASSWORD
+rabbitmq:
+  secret:
+    username: ref+vault://secrets/rabbitmq#/username
+    password: ref+vault://secrets/rabbitmq#/password
+
+=== helm/values.vault.yaml ===
+sharedSecrets:
+  externalApis:
+    data:
+      NEWSAPI_API_KEY: "dummy"
+      NEWSDATA_API_KEY: "dummy"
+
+db:
+  secret:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgresmaster
+    POSTGRES_DB: foodgramDB
+
+rabbitmq:
+  secret:
+    username: guest
+    password: guest

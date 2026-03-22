@@ -1,21 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: database
+  name: {{ .Values.service.ports.host }}
   namespace: foodgram
   labels:
 {{ include "db.labels" . | indent 4 }}
 spec:
-  {{- with .Values.service }}
-  type: {{ .type }}
+  type: {{ .Values.service.type }}
   clusterIP: None
+  sessionAffinity: None
   ports:
-  {{- with  .ports }}
-  - name: {{ .name }}
-    port: {{ .port }}
-    targetPort: {{ .targetPort }}
-    protocol: {{ .protocol }} 
-  {{- end }}
-  {{- end }}
+    - name: {{ .Values.service.ports.name }}
+      port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+      protocol: {{ .Values.service.ports.protocol }}
   selector:
     app: {{ .Values.statefulset.app }}

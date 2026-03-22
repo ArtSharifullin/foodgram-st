@@ -20,7 +20,7 @@ statefulset:
   replicas: 0
 
 deployment:
-  replicas: 0
+  replicas: 1
   command: ["celery"]
   args: ["-A", "foodgram.celery", "worker", "--loglevel=info"]
   env:

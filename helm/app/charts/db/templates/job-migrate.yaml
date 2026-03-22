@@ -3,6 +3,9 @@ kind: Job
 metadata:
   name: migrate-job
   namespace: foodgram
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   template:
     spec:
@@ -11,7 +14,10 @@ spec:
         - name: migrate
           image: "{{ .Values.global.images.api.name }}:{{ .Values.global.images.api.tag }}"
           imagePullPolicy: {{ .Values.global.images.api.pullPolicy }}
-          command: ["sh", "-c", "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate"]
+          command:
+            - "sh"
+            - "-c"
+            - "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate"
           env:
             - name: DJANGO_SETTINGS_MODULE
               value: "foodgram.settings"

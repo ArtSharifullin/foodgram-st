@@ -121,17 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/backend_static/'
+STATIC_ROOT = Path(os.getenv('STATIC_ROOT', BASE_DIR / 'backend_static'))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'backend_static')
-
-MEDIA_URL = '/backend_media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'backend_media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path(os.getenv('MEDIA_ROOT', BASE_DIR / 'media'))
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-STATIC_URL = '/backend_static/'
-STATIC_ROOT = BASE_DIR / '/backend_static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -144,3 +139,4 @@ REST_FRAMEWORK = {
 DJOSER = {
     'LOGIN_FIELD': 'email'
 }
+

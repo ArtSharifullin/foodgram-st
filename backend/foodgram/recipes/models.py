@@ -43,7 +43,7 @@ class Recipe(models.Model):
     )
     image = models.ImageField(
         'Фото блюда',
-        upload_to='backend-media/recipes/images/',
+        upload_to='recipes/images/',
     )
     text = models.TextField(
         'Рецепт',
@@ -190,3 +190,4 @@ class ShoppingList(models.Model):
 
     def __str__(self) -> str:
         return f'{self.recipe} в списке покупок у {self.user}'
+

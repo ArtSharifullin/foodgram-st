@@ -21,6 +21,11 @@ data:
           expires 30d;
         }
 
+        location /backend_media/ {
+          alias /app/media/;
+          expires 30d;
+        }
+
         location /static/ {
             root /usr/share/nginx/html;
             expires 1y;

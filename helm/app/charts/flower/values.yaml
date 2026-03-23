@@ -44,6 +44,7 @@ deployment:
     values: {}
     secrets: {}
     config: {}
+  resources: {}
 
 volumeMounts:
   media:

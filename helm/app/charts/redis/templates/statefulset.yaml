@@ -22,6 +22,8 @@ spec:
           imagePullPolicy: {{ .Values.statefulset.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.ports.port }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
             - name: {{ .Chart.Name }}-storage
               mountPath: {{ .Values.statefulset.pvc.mountPath }}

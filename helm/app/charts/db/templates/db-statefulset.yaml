@@ -21,6 +21,8 @@ spec:
           image: "{{ .Values.statefulset.image.name }}:{{ .Values.statefulset.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.ports.port }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           envFrom:
             - secretRef:
                 name: {{ include "db.secretsName" . }}

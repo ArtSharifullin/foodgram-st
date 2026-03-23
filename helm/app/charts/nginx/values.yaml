@@ -24,3 +24,11 @@ volumeMounts:
     name: backend-static
     mountPath: /backend_static
     subName: static-pvc
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 120m
+    memory: 150Mi
+

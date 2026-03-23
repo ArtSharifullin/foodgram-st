@@ -18,3 +18,5 @@ statefulset:
     mountPath: /data/redis
     accessModes: ReadWriteOnce
     storage: 1Gi
+resources: {}
+

@@ -24,3 +24,6 @@ statefulset:
     accessModes: ReadWriteOnce
     storage: 1Gi
     hostpath: /data/db
+
+resources: {}
+

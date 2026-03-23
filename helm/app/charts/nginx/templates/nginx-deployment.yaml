@@ -32,6 +32,8 @@ spec:
           {{- end }}
           ports:
             - containerPort: {{ .Values.service.ports.port }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
             {{- with .Values.volumeMounts }}
             - name: {{ .config.name }}

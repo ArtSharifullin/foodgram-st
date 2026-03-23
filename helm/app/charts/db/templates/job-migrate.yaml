@@ -17,7 +17,7 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate"
+            - "python /app/manage.py makemigrations users recipes api services && python /app/manage.py migrate && python /app/manage.py import_data"
           env:
             - name: DJANGO_SETTINGS_MODULE
               value: "foodgram.settings"

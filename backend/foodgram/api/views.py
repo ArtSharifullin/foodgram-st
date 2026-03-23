@@ -50,6 +50,7 @@ class IngredientViewSet(ListRetriveViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     pagination_class = None
+    filter_backends = (DjangoFilterBackend, SearchFilter)
     search_fields = ('^name',)
     filterset_class = IngredientFilter
 

@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from django.core.management.base import BaseCommand
 
@@ -16,7 +17,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Тело команды."""
 
-        with open('/app/data/ingredients.json', 'r') as file:
+        data_path = Path('/app/data/ingredients.json')
+        if not data_path.exists():
+            data_path = Path(__file__).resolve().parents[5] / 'data' / 'ingredients.json'
+
+        with data_path.open('r', encoding='utf-8') as file:
             data = json.load(file)
 
         for note in data:
